@@ -1,0 +1,13 @@
+import PageNavigation from '../PageNavigation';
+import Logo from '../Logo';
+import HeaderFeature from './HeaderFeature';
+
+export default function Header() {
+  return (
+    <header className="flex justify-between py-[18px]">
+      <Logo />
+      <PageNavigation />
+      <HeaderFeature />
+    </header>
+  );
+}
