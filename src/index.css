@@ -8,8 +8,26 @@
 
 html,
 body {
-  @apply h-full max-h-full w-full;
+  scrollbar-width: thin;
+  scrollbar-color: black rgba(199, 199, 199, 0.4);
 }
-#root {
-  @apply h-full ;
+
+.scroll {
+  scrollbar-width: thin;
+  scrollbar-color: black rgba(199, 199, 199, 0.4);
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: black;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(199, 199, 199, 0.4);
 }

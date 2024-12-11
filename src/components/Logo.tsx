@@ -6,7 +6,12 @@ interface IProps {
 
 export default function Logo({ className }: IProps) {
   return (
-    <h1 className={clsx('font-medium text-2xl leading-6', className)}>
+    <h1
+      className={clsx(
+        'font-medium text-2xl leading-6 cursor-pointer',
+        className
+      )}
+    >
       React store
     </h1>
   );
