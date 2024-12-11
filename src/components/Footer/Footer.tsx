@@ -6,13 +6,13 @@ import { LiaFacebookF } from 'react-icons/lia';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#141718] pt-20 pb-8 text-white flex-initial">
+    <footer className="bg-[#141718] pt-20 pb-8 text-white">
       <div className="max-w-[1120px] w-full mx-auto">
         <div className="flex justify-between items-center mb-12">
           <Logo />
           <PageNavigation them="light" />
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between border-t border-white pt-4 pb-5">
           <div className="text-xs flex gap-7">
             <p>Copyright © 2023 3legant. All rights reserved</p>
             <p>Privacy Policy</p>
