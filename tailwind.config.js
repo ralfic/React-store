@@ -9,7 +9,8 @@ export default {
         SpaceGrotesk: ['Space Grotesk', 'sans-serif'],
       },
       backgroundImage: {
-        'banner-fon': "url('./public/bg-banner.jpg')",
+        'banner-fon': "url('/bg-banner.jpg')",
+        'banner-fon-join': "url('/image-banner-headphones.png')",
       },
       maxWidth: {
         wrapper: '1120px',

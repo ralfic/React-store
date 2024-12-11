@@ -11,7 +11,7 @@ export const productsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query<IProductsResponse, null>({
       keepUnusedDataFor: 0,
-      query: () => `products?limit=20`,
+      query: () => `products?limit=8`,
     }),
   }),
 });
