@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Button } from '../uikit/Button';
 
 export default function BannerShopping() {
@@ -8,7 +9,7 @@ export default function BannerShopping() {
           Listen to the amazing music sound.
         </h2>
         <p className="text-xl mb-7">Experience music like never before</p>
-        <Button>Shopping Now</Button>
+        <Link to={"/shope"}><Button>Shopping Now</Button></Link>
       </div>
     </section>
   );

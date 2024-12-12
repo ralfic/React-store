@@ -9,17 +9,17 @@ export default function ShopCollection() {
       </h2>
       <div className="grid grid-cols-2 gap-6">
         <ShopCollectionCard
-          title={'Mobile'}
+          title={'mobile'}
           img="/shope-collection/mobile.png"
           type="lg"
         />
         <div className="grid grid-rows-[repeat(2,_minmax(0,_320px))] gap-6">
           <ShopCollectionCard
-            title={'Gaming'}
+            title={'gaming'}
             img="/shope-collection/gaming.png"
           />
           <ShopCollectionCard
-            title={'Audio'}
+            title={'audio'}
             img="/shope-collection/audio.png"
           />
         </div>
@@ -38,7 +38,7 @@ function ShopCollectionCard({ title, img, type = 'sm' }: ICollectionCardProps) {
   return (
     <div
       className={clsx(
-        'flex p-12 box-border bg-gray-200/70 hover:scale-[1.02] transition-all ease-in-out',
+        'flex p-12 box-border bg-gray-200/70 hover:scale-[1.02] transition-all ease-in-out ',
         type === 'sm' ? 'flex-row justify-between' : 'flex-col'
       )}
     >
@@ -52,13 +52,10 @@ function ShopCollectionCard({ title, img, type = 'sm' }: ICollectionCardProps) {
         </div>
       )}
       <div className="mt-auto">
-        <h3 className="font-medium text-[34px] leading-[38px] font-Poppins mb-3">
+        <h3 className="font-medium text-[34px] leading-[38px] font-Poppins mb-3 first-letter:uppercase">
           {title}
         </h3>
-        <a
-          className="inline-flex items-center justify-center border-b border-black s font-medium"
-          href=""
-        >
+        <a className="inline-flex items-center justify-center border-b cursor-pointer border-black s font-medium">
           Collection
           <HiOutlineArrowRight className="ml-1 w-4 h-4" />
         </a>

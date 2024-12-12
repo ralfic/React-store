@@ -9,7 +9,8 @@ interface IProps {
 }
 
 export function ProductsList({ typeProducts, typeArrangement, title }: IProps) {
-  const { data } = useGetProductsQuery(null);
+  const { data } = useGetProductsQuery({});
+  
   return (
     <div className="max-w-wrapper mx-auto w-full py-12">
       <h2 className="font-semibold text-4xl mb-12 font-Poppins">{title}</h2>
