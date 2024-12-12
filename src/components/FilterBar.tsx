@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { useGetCategoriesQuery } from '../api/categoriesApi';
-import { TCategory, TSort } from '../types';
+import { TCategory } from '../types';
 import { BsFilter } from 'react-icons/bs';
 
 interface IProps {
@@ -12,7 +12,7 @@ export default function FilterBar({
   selectCategory,
   setSelectCategory,
 }: IProps) {
-  const { data, error, isLoading } = useGetCategoriesQuery(null);
+  const { data } = useGetCategoriesQuery(null);
 
   return (
     <div className="flex flex-col gap-8 font-semibold max-w-[256px] w-full">

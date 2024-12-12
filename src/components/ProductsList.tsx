@@ -9,7 +9,7 @@ interface IProps {
 }
 
 export function ProductsList({ typeProducts, typeArrangement, title }: IProps) {
-  const { data, error, isLoading } = useGetProductsQuery({});
+  const { data } = useGetProductsQuery({});
 
   return (
     <div className="max-w-wrapper mx-auto w-full py-12">

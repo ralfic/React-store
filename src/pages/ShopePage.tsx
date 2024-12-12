@@ -16,6 +16,7 @@ export default function ShopePage() {
 
   return (
     <>
+      {isLoading && <div>Loading...</div>}
       <div className="max-w-wrapper mx-auto w-full">
         <div className="flex gap-6 pt-14 pb-24">
           <FilterBar

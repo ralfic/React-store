@@ -12,18 +12,15 @@ export default function ShopCollection() {
           title={'mobile'}
           img="/shope-collection/mobile.png"
           type="lg"
-          link={'mobile'}
         />
         <div className="grid grid-rows-[repeat(2,_minmax(0,_320px))] gap-6">
           <ShopCollectionCard
             title={'gaming'}
             img="/shope-collection/gaming.png"
-            link={'gaming'}
           />
           <ShopCollectionCard
             title={'audio'}
             img="/shope-collection/audio.png"
-            link={'audio'}
           />
         </div>
       </div>
@@ -35,15 +32,9 @@ interface ICollectionCardProps {
   title: string;
   img: string;
   type?: 'lg' | 'sm';
-  link: string;
 }
 
-function ShopCollectionCard({
-  title,
-  img,
-  type = 'sm',
-  link,
-}: ICollectionCardProps) {
+function ShopCollectionCard({ title, img, type = 'sm' }: ICollectionCardProps) {
   return (
     <div
       className={clsx(
