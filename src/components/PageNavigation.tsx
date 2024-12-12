@@ -20,7 +20,7 @@ export default function PageNavigation({ them = 'dark' }: IProps) {
           <Link key={index} to={page.path}>
             <li
               className={clsx(
-                'relative cursor-pointer transition-all ease-in-out before:duration-300 before:transition-[width] before:ease-in-out before:w-0  hover:before:w-full before:h-[1.5px]  before:bottom-0  before:absolute ',
+                'relative cursor-pointer transition-all ease-in-out before:duration-300  before:transition-[width] before:ease-in-out before:w-0  hover:before:w-full before:h-[1.5px]  before:bottom-0  before:absolute ',
                 them === 'dark'
                   ? pathname === page.path
                     ? 'text-black before:bg-black'

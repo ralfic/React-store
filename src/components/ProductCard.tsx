@@ -14,7 +14,7 @@ export default function ProductCard({ product, type }: IProps) {
 
   return (
     <div className="flex flex-col gap-3 max-h-[450px] items-center ">
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden  ">
+      <div className="bg-white shadow-lg rounded-lg  ">
         <div
           className="relative cursor-pointer"
           onMouseEnter={() => setMouseOnCard((prev) => !prev)}
@@ -34,7 +34,7 @@ export default function ProductCard({ product, type }: IProps) {
             <PiHeartLight />
           </span>
           <img
-            className=" max-w-[265px] h-[300px]  object-fill w-full "
+            className=" max-w-[265px] h-[300px]  object-contain w-full "
             src={product.image}
             alt={product.title}
           />
