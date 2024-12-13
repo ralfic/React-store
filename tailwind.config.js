@@ -11,6 +11,7 @@ export default {
       backgroundImage: {
         'banner-fon': "url('/bg-banner.jpg')",
         'banner-fon-join': "url('/image-banner-headphones.png')",
+        'banner-fon-shope': "url('/bg-white.jpg')",
       },
       maxWidth: {
         wrapper: '1120px',

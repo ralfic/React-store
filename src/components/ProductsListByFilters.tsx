@@ -1,16 +1,21 @@
 import { IProduct, TCategory } from '../types';
 import ProductCard from './ProductCard';
+import ProductsListSkeleton from './uikit/ProductsListSkeleton';
 
 interface IProps {
   products?: IProduct[];
   currentCategory: TCategory | null;
   increaseLimitProducts: () => void;
+  isLoading: boolean;
+  limit: number;
 }
 
 export default function ProductsListByFilters({
   products,
   currentCategory,
   increaseLimitProducts,
+  isLoading,
+  limit,
 }: IProps) {
   return (
     <div className="w-full">
@@ -20,10 +25,19 @@ export default function ProductsListByFilters({
         </h3>
       </div>
       <div className="grid grid-cols-3 gap-6 mb-20">
-        {products &&
-          products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+        {!isLoading && (
+          <>
+            {products &&
+              products.map((product, index) => (
+                <ProductCard key={index} product={product} />
+              ))}
+          </>
+        )}
+        {isLoading && (
+          <>
+            <ProductsListSkeleton limit={limit} />
+          </>
+        )}
       </div>
       <button
         onClick={increaseLimitProducts}

@@ -1,13 +1,29 @@
+import getRandomCategory from '@/helpers/getRandomCategory';
 import { setProducts } from '../store/slices/productsSlice';
-import { IProductsResponse, ParamsType } from '../types';
+import {
+  IProductsResponse,
+  ParamsFiltersType,
+  ParamsProductsType,
+} from '../types';
 import { api } from './api';
 
 export const productsApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getProducts: builder.query<IProductsResponse, ParamsType>({
+    getProductsByFilters: builder.query<IProductsResponse, ParamsFiltersType>({
       keepUnusedDataFor: 0,
       query: (params) => {
-        const { page = 1, limit = 8, category } = params || {};
+        const { page = 1, limit = 8, category, sort } = params || {};
+        if (sort) {
+          return {
+            url: `products${category ? '/category' : ''}`,
+            params: {
+              page,
+              limit,
+              type: category,
+              sort,
+            },
+          };
+        }
         return {
           url: `products${category ? '/category' : ''}`,
           params: {
@@ -28,6 +44,20 @@ export const productsApi = api.injectEndpoints({
         }
       },
     }),
+    getProducts: builder.query<IProductsResponse, ParamsProductsType>({
+      keepUnusedDataFor: 0,
+      query: (params) => {
+        const randomCategory = getRandomCategory();
+        const { limit = 8, random } = params || {};
+        return {
+          url: `products${random ? `/category?type=${randomCategory}` : ''}`,
+          params: {
+            limit,
+          },
+        };
+      },
+    }),
   }),
 });
-export const { useGetProductsQuery } = productsApi;
+export const { useGetProductsByFiltersQuery, useGetProductsQuery } =
+  productsApi;

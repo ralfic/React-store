@@ -1,9 +1,12 @@
+import { setFilters } from '@/store/slices/productsSlice';
 import clsx from 'clsx';
 import { HiOutlineArrowRight } from 'react-icons/hi';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export default function ShopCollection() {
   return (
-    <section className="max-w-wrapper w-full mx-auto pt-12">
+    <section className="max-w-wrapper w-full mx-auto pt-12  select-none">
       <h2 className="font-semibold text-4xl mb-12 font-Poppins">
         Shop Collection
       </h2>
@@ -35,6 +38,7 @@ interface ICollectionCardProps {
 }
 
 function ShopCollectionCard({ title, img, type = 'sm' }: ICollectionCardProps) {
+  const dispatch = useDispatch();
   return (
     <div
       className={clsx(
@@ -55,10 +59,16 @@ function ShopCollectionCard({ title, img, type = 'sm' }: ICollectionCardProps) {
         <h3 className="font-medium text-[34px] leading-[38px] font-Poppins mb-3 first-letter:uppercase">
           {title}
         </h3>
-        <a className="inline-flex items-center justify-center border-b cursor-pointer border-black s font-medium">
+        <Link
+          to={'/shope'}
+          className="inline-flex items-center justify-center border-b cursor-pointer border-black s font-medium"
+          onClick={() =>
+            dispatch(setFilters({ key: 'category', value: title }))
+          }
+        >
           Collection
           <HiOutlineArrowRight className="ml-1 w-4 h-4" />
-        </a>
+        </Link>
       </div>
       {type === 'sm' && (
         <div className="h-full w-full ml-4">
