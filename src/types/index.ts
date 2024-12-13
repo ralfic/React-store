@@ -27,7 +27,7 @@ export interface IFilters {
   page: number;
   limit: number;
   category: TCategory | null;
-  sort: string;
+  sort: string | null;
 }
 
 export type ParamsFiltersType = Partial<IFilters>;
