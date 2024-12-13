@@ -15,7 +15,7 @@ export default function PageNavigation({ them = 'dark' }: IProps) {
   const { pathname } = useLocation();
   return (
     <nav>
-      <ul className="flex gap-10 font-medium text">
+      <ul className="flex gap-10 font-medium select-none">
         {pages.map((page, index) => (
           <Link key={index} to={page.path}>
             <li

@@ -1,3 +1,4 @@
+import { Box, Float, Circle } from '@chakra-ui/react';
 import { CiSearch } from 'react-icons/ci';
 import { PiUserCircleLight, PiShoppingCartSimpleLight } from 'react-icons/pi';
 
@@ -11,10 +12,19 @@ export default function HeaderFeature() {
         <PiUserCircleLight className="w-6 h-6" />
       </button>
       <button className="flex gap-y-1 items-center justify-center">
-        <PiShoppingCartSimpleLight className="w-6 h-6" />
-        <span className="bg-black text-white rounded-full font-bold text-xs leading-[10px] w-5 h-5 text-center content-center">
-          2
-        </span>
+        <Box position="relative" w="24px" h="24px" bg="transparent">
+          <PiShoppingCartSimpleLight className="w-6 h-6" />
+          <Float>
+            <Circle
+              className="text-xs font-semibold font-Poppins"
+              size="5"
+              bg="black"
+              color="white"
+            >
+              2
+            </Circle>
+          </Float>
+        </Box>
       </button>
     </div>
   );

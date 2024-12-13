@@ -12,6 +12,7 @@ const initialState: State = {
     page: 1,
     limit: 9,
     category: null,
+    sort: null
   },
 };
 

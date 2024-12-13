@@ -4,11 +4,14 @@ import './index.css';
 import { MyAppRouter } from './routes';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import { Provider as ProviderC } from '@/components/ui/provider';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Provider store={store}>
-      <MyAppRouter />
-    </Provider>
+    <ProviderC>
+      <Provider store={store}>
+        <MyAppRouter />
+      </Provider>
+    </ProviderC>
   </StrictMode>
 );
