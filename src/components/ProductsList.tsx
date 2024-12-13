@@ -19,6 +19,7 @@ export function ProductsList({
   isLoading,
   products,
 }: IProps) {
+
   return (
     <div className="max-w-wrapper mx-auto w-full py-12">
       <h2 className="font-semibold text-4xl mb-12 font-Poppins">{title}</h2>
