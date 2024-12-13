@@ -12,7 +12,7 @@ export interface IProduct {
 }
 
 export interface CategoriesApiResponse {
-  categories: string[];
+  categories: TCategory[];
   description: string;
   status: string;
 }
@@ -27,9 +27,12 @@ export interface IFilters {
   page: number;
   limit: number;
   category: TCategory | null;
+  sort: string;
 }
 
-export type ParamsType = Partial<IFilters>;
+export type ParamsFiltersType = Partial<IFilters>;
+
+export type ParamsProductsType = Partial<{ limit: number; random: boolean }>;
 
 export type TCategory =
   | 'tv'
@@ -38,5 +41,3 @@ export type TCategory =
   | 'mobile'
   | 'gaming'
   | 'appliances';
-
-export type TSort = 'desc' | 'asc';
