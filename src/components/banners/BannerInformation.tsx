@@ -8,7 +8,7 @@ import {
 
 export default function BannerInformation() {
   return (
-    <section className="grid grid-cols-4 gap-6 max-w-wrapper w-full mx-auto py-10 select-none">
+    <article className="grid grid-cols-4 gap-6 max-w-wrapper w-full mx-auto py-10 select-none">
       <BannerInformationCard
         title="Free Shipping"
         description="Order above $200"
@@ -29,7 +29,7 @@ export default function BannerInformation() {
         description="Phone and Email support"
         icon={<PiPhoneLight className="w-12 h-12" />}
       />
-    </section>
+    </article>
   );
 }
 

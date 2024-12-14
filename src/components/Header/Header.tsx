@@ -1,5 +1,5 @@
 import PageNavigation from '../PageNavigation';
-import Logo from '../Logo';
+import Logo from '../uikit/Logo';
 import HeaderFeature from './HeaderFeature';
 
 export default function Header() {

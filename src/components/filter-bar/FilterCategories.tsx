@@ -1,6 +1,6 @@
 import { TCategory } from '@/types';
 import clsx from 'clsx';
-import FilterSkeleton from './FilterSkeleton';
+import FilterSkeleton from '../uikit/FilterSkeleton';
 
 interface IProps {
   selectCategory: TCategory | null;

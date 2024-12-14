@@ -12,14 +12,11 @@ export default function ShopePage() {
   const products = useAppSelector((state) => state.products.products);
   const filters = useAppSelector((state) => state.products.filters);
   const limit = useAppSelector((state) => state.products.filters.limit);
-  const sort = useAppSelector((state) => state.products.filters.sort);
-
-  console.log(sort);
 
   const { isLoading } = useGetProductsByFiltersQuery({ ...filters });
 
   return (
-    <>
+    <main>
       <div className="max-w-wrapper mx-auto w-full">
         <BannerShopePage />
         <div className="flex gap-6 pt-14 pb-24">
@@ -45,6 +42,6 @@ export default function ShopePage() {
         </div>
       </div>
       <BannerJoinNewsletter />
-    </>
+    </main>
   );
 }
