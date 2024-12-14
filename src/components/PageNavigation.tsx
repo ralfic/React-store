@@ -8,11 +8,12 @@ interface IProps {
 const pages = [
   { namePage: 'Home', path: '/' },
   { namePage: 'Shope', path: '/shope' },
-  { namePage: 'Product', path: '/product' },
+  { namePage: 'Product', path: '/product/1' },
 ];
 
 export default function PageNavigation({ them = 'dark' }: IProps) {
   const { pathname } = useLocation();
+
   return (
     <nav>
       <ul className="flex gap-10 font-medium select-none">

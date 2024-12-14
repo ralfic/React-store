@@ -11,28 +11,12 @@ export interface IProduct {
   title: string;
 }
 
-export interface CategoriesApiResponse {
-  categories: TCategory[];
-  description: string;
-  status: string;
-}
-
-export interface IProductsResponse {
-  products: IProduct[];
-  status: string;
-  message: string;
-}
-
 export interface IFilters {
   page: number;
   limit: number;
   category: TCategory | null;
   sort: string | null;
 }
-
-export type ParamsFiltersType = Partial<IFilters>;
-
-export type ParamsProductsType = Partial<{ limit: number; random: boolean }>;
 
 export type TCategory =
   | 'tv'

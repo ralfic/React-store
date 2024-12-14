@@ -1,6 +1,6 @@
 import { Checkbox } from '@/components/ui/checkbox';
 import { useState } from 'react';
-import FilterSkeleton from './FilterSkeleton';
+import FilterSkeleton from '../uikit/FilterSkeleton';
 
 const valuePrice = [
   { title: 'all', sortValue: null },
@@ -8,12 +8,12 @@ const valuePrice = [
   { title: 'cheap', sortValue: 'asc' },
 ];
 
-interface IProsp {
+interface IProps {
   setSelectSort: (value: string | null) => void;
   isLoading: boolean;
 }
 
-export default function FilterPrice({ isLoading, setSelectSort }: IProsp) {
+export default function FilterPrice({ isLoading, setSelectSort }: IProps) {
   const [selectCheckBox, setSelectCheckBox] = useState('all');
 
   return (
