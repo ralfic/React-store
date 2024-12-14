@@ -15,7 +15,6 @@ export default function HomePage() {
     <main>
       <BannerShopping />
       <ProductsList
-        typeProducts="new"
         typeArrangement="row"
         title="New Arrivals"
         isLoading={isLoading}
@@ -23,7 +22,6 @@ export default function HomePage() {
       />
       <ShopCollection />
       <ProductsList
-        typeProducts="hot"
         typeArrangement="col"
         title="Best Seller"
         products={dataRandomProducts?.products}

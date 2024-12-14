@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 
 export default function App() {
   const { pathname } = useLocation();
-
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -14,10 +13,10 @@ export default function App() {
     });
   }, [pathname]);
   return (
-    <div className="flex flex-col">
+    <>
       <Header />
       <Outlet />
       <Footer />
-    </div>
+    </>
   );
 }

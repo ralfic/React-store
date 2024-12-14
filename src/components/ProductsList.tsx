@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 import ProductCard from './ProductCard';
 import { IProduct } from '@/types';
-
+import { HiOutlineArrowRight } from 'react-icons/hi';
 import ProductsListSkeleton from './uikit/ProductsListSkeleton';
+import { Link } from 'react-router-dom';
 
 interface IProps {
-  typeProducts?: 'new' | 'hot';
   typeArrangement: 'col' | 'row';
   title: string;
   isLoading: boolean;
@@ -13,16 +13,23 @@ interface IProps {
 }
 
 export function ProductsList({
-  typeProducts,
   typeArrangement,
   title,
   isLoading,
   products,
 }: IProps) {
-
   return (
     <div className="max-w-wrapper mx-auto w-full py-12">
-      <h2 className="font-semibold text-4xl mb-12 font-Poppins">{title}</h2>
+      <div className="flex justify-between items-center">
+        <h2 className="font-semibold text-4xl mb-12 font-Poppins">{title}</h2>
+        <Link
+          to={'/shope'}
+          className="inline-flex items-center justify-center border-b cursor-pointer border-black s font-medium"
+        >
+          More Products
+          <HiOutlineArrowRight className="ml-1 w-4 h-4" />
+        </Link>
+      </div>
       <div
         className={clsx(
           typeArrangement === 'row'
@@ -34,11 +41,7 @@ export function ProductsList({
           <>
             {products &&
               products.map((product, index) => (
-                <ProductCard
-                  key={index}
-                  product={product}
-                  type={typeProducts}
-                />
+                <ProductCard key={index} product={product} />
               ))}
           </>
         )}

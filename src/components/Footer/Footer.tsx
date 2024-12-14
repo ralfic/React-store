@@ -1,5 +1,5 @@
 import { PiInstagramLogoLight, PiYoutubeLogoLight } from 'react-icons/pi';
-import Logo from '../Logo';
+import Logo from '../uikit/Logo';
 import PageNavigation from '../PageNavigation';
 
 import { LiaFacebookF } from 'react-icons/lia';

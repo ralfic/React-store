@@ -16,6 +16,7 @@ export default function FilterBar({
   setSelectSort,
 }: IProps) {
   const { data, isLoading } = useGetCategoriesQuery(null);
+
   return (
     <div className="flex flex-col gap-8 font-semibold max-w-[256px] w-full">
       <div className="flex gap-1 items-center ">
