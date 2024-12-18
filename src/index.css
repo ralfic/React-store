@@ -11,6 +11,9 @@ body {
   scrollbar-width: thin;
   scrollbar-color: black rgba(199, 199, 199, 0.4);
 }
+#root {
+  @apply font-Inter;
+}
 
 .scroll {
   scrollbar-width: thin;

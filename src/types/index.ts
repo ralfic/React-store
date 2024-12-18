@@ -1,14 +1,20 @@
 export interface IProduct {
-  brand: string;
-  category: string;
-  color: string;
-  description: string;
-  discount: number;
   id: number;
-  image: string;
-  model: string;
-  price: number;
   title: string;
+  price: number;
+  category: string;
+  image: string;
+  description: string;
+  brand: string;
+  model: string;
+  color?: string;
+  discount?: number;
+  onSale?: boolean;
+  popular?: boolean;
+}
+
+export interface ICartItem extends IProduct {
+  quantity: number;
 }
 
 export interface IFilters {

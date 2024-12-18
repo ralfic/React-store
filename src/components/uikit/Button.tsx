@@ -3,27 +3,33 @@ import { ReactNode } from 'react';
 
 interface IButton {
   children: string;
-  current?: 'dark' | 'light';
-  size?: 'lg' | 'sm';
+  type?: 'solid' | 'outline';
+  rounded?: boolean;
   className?: string;
   icon?: ReactNode;
+  size?: 'lg' | 'base';
+  onClick?: () => void;
 }
 
 export function Button({
   children,
-  current = 'dark',
-  size = 'lg',
+  type = 'solid',
   className,
   icon,
+  rounded = false,
+  size = 'base',
+  onClick,
 }: IButton) {
   return (
     <button
+      onClick={onClick}
       className={clsx(
-        'rounded-lg   font-medium leading-8 outline-none transition-colors border flex gap-2 items-center justify-center',
-        current === 'dark'
+        'font-medium leading-8 outline-none transition-colors border flex gap-2 items-center justify-center w-full font-Inter',
+        type === 'solid'
           ? 'text-white border-black bg-black hover:bg-white hover:text-black'
           : 'text-black border-black bg-white hover:text-white hover:bg-black',
-        size === 'lg' ? 'py-2.5 px-12 text-lg' : 'py-1 w-full px-6 text-base',
+        rounded ? 'rounded-3xl' : 'rounded-lg',
+        size === 'base' ? 'py-1.5 px-10' : 'py-2.5 px-14',
         className
       )}
     >
