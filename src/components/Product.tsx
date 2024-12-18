@@ -1,35 +1,29 @@
 import { IProduct } from '@/types';
-import { PiHeartLight, PiMinus, PiPlus } from 'react-icons/pi';
+import { PiHeartLight } from 'react-icons/pi';
 import { Button } from '@/components/uikit/Button';
-import { useState } from 'react';
 import calculateDiscount from '@/helpers/calculateDiscount';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { addItem } from '@/store/slices/cart/cartSlice';
+import { toggleCart } from '@/store/slices/flyoutCartSlice';
 
 interface IProps {
   product: IProduct | undefined;
 }
 
 export default function Product({ product }: IProps) {
-  const [countProduct, setCountProduct] = useState(1);
-
-  function plusCountProduct() {
-    setCountProduct((prev) => ++prev);
-  }
-
-  function minusCountProduct() {
-    setCountProduct((prev) => (prev === 1 ? prev : prev - 1));
-  }
+  const dispatch = useAppDispatch();
+  const items = useAppSelector((state) => state.cart.items);
+  const thereIsInCar = !!items.find((i) => i.id === product?.id);
 
   return (
     <section className="flex gap-14 justify-between relative pb-10">
-      <div className="max-w-[548px]">
-        <div className="absolute top-4 left-4 flex flex-col gap-1">
-          {product?.discount && (
-            <span className="bg-green-400 text-white py-1  rounded-[4px] px-3 uppercase font-bold text-sm">
-              {`-${product?.discount}%`}
-            </span>
-          )}
-        </div>
-        <img src={product?.image} alt="" />
+      <div className="max-w-[548px] content-center">
+        {product?.discount && (
+          <span className="bg-green-400 text-white py-1 absolute top-4 left-4  rounded-[4px] px-3 uppercase font-bold text-sm">
+            {`-${product?.discount}%`}
+          </span>
+        )}
+        <img src={product?.image} />
       </div>
       <div>
         <div className="flex flex-col gap-4 max-w-[505px] pb-6 border-b">
@@ -42,8 +36,12 @@ export default function Product({ product }: IProps) {
           <div className="font-medium flex gap-2 font-Poppins text-2xl ">
             {product?.discount && (
               <>
-                <p>{calculateDiscount(product?.discount, product?.price)}$</p>
-                <p className="text-gray-400 line-through">{product?.price}$</p>
+                <p>
+                  {product?.price -
+                    calculateDiscount(product?.discount, product?.price)}
+                  $
+                </p>
+                <p className="text-gray-400 line-through">{product.price}$</p>
               </>
             )}
             {!product?.discount && <>{product?.price}$</>}
@@ -76,25 +74,22 @@ export default function Product({ product }: IProps) {
           </div>
         </div>
         <div className="py-6 flex flex-col gap-4">
-          <div className="flex gap-6">
-            <div className="bg-gray-100 py-2 px-4 grid grid-cols-[repeat(3,_minmax(0,_22px))] rounded-lg gap-4">
-              <button onClick={minusCountProduct}>
-                <PiMinus className="h-4 w-4" />
-              </button>
-              <div className="font-semibold text-center">{countProduct}</div>
-              <button onClick={plusCountProduct}>
-                <PiPlus className="h-4 w-4" />
-              </button>
-            </div>
-            <Button
-              icon={<PiHeartLight className="w-6 h-6" />}
-              current="light"
-              size="sm"
-            >
+          <div className="flex gap-4">
+            <Button icon={<PiHeartLight className="w-6 h-6" />} type="outline">
               Wishlist
             </Button>
+            <Button
+              onClick={() => {
+                if (!thereIsInCar) {
+                  dispatch(addItem(product!));
+                } else {
+                  dispatch(toggleCart(true));
+                }
+              }}
+            >
+              {thereIsInCar ? 'Go to cart' : 'Add to cart'}
+            </Button>
           </div>
-          <Button size="sm">Add to Cart</Button>
         </div>
       </div>
     </section>

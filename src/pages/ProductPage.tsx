@@ -1,7 +1,7 @@
 import {
   useGetProductsQuery,
   useGetSingleProductQuery,
-} from '@/api/productApi';
+} from '@/api/products/productsApi';
 import BannerJoinNewsletter from '@/components/banners/BannerJoinNewsletter';
 import { ProductsList } from '@/components/ProductsList';
 import { useParams } from 'react-router-dom';

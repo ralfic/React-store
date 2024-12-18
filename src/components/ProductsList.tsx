@@ -19,7 +19,7 @@ export function ProductsList({
   products,
 }: IProps) {
   return (
-    <div className="max-w-wrapper mx-auto w-full py-12">
+    <div className="max-w-wrapper mx-auto w-full py-12 ">
       <div className="flex justify-between items-center">
         <h2 className="font-semibold text-4xl mb-12 font-Poppins">{title}</h2>
         <Link
@@ -34,7 +34,7 @@ export function ProductsList({
         className={clsx(
           typeArrangement === 'row'
             ? 'flex flex-nowrap overflow-y-auto scrollbar-thin pb-12 scroll gap-6'
-            : 'grid grid-cols-4 gap-x-6 gap-y-12'
+            : 'grid grid-cols-4 gap-x-6 gap-y-12 max-lg:grid-cols-3 max-md:grid-cols-2 max-xs:grid-cols-1'
         )}
       >
         {!isLoading && (

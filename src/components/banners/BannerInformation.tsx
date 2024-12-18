@@ -8,7 +8,7 @@ import {
 
 export default function BannerInformation() {
   return (
-    <article className="grid grid-cols-4 gap-6 max-w-wrapper w-full mx-auto py-10 select-none">
+    <article className="grid grid-cols-4 gap-6 max-w-wrapper w-full mx-auto py-10 select-none max-md:grid-cols-2 max-xs:grid-cols-1">
       <BannerInformationCard
         title="Free Shipping"
         description="Order above $200"

@@ -2,7 +2,7 @@ import { TCategory } from '../../types';
 import { BsFilter } from 'react-icons/bs';
 import FilterCategories from './FilterCategories';
 import FilterPrice from './FilterPrice';
-import { useGetCategoriesQuery } from '@/api/categoriesApi';
+import { useGetCategoriesQuery } from '@/api/categories/categoriesApi';
 
 interface IProps {
   selectCategory: TCategory | null;

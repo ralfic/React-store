@@ -1,6 +1,6 @@
-export default function calculateDiscount(discount: number, price: number) {
+export default function calculateDiscount(discount: number | undefined, price: number | undefined) {
   if (discount && price) {
-    return Math.round((price * (100 - discount)) / 100);
+    return Math.round((price *  discount) / 100);
   }
   return 0;
 }
