@@ -1,10 +1,10 @@
 import BannerShopePage from '@/components/banners/BannerShopePage';
-import { useGetProductsByFiltersQuery } from '../api/productApi';
+import { useGetProductsByFiltersQuery } from '../api/products/productsApi';
 import BannerJoinNewsletter from '../components/banners/BannerJoinNewsletter';
 import FilterBar from '../components/filter-bar/FilterBar';
 import ProductsListByFilters from '../components/ProductsListByFilters';
 import { useAppDispatch, useAppSelector } from '../store';
-import { setFilters } from '../store/slices/productsSlice';
+import { setFilters } from '../store/slices/products/productsSlice';
 
 export default function ShopePage() {
   const dispatch = useAppDispatch();

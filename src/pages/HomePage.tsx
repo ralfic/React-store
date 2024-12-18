@@ -3,7 +3,7 @@ import BannerInformation from '../components/banners/BannerInformation';
 import { ProductsList } from '../components/ProductsList';
 import BannerJoinNewsletter from '../components/banners/BannerJoinNewsletter';
 import ShopCollection from '../components/ShopCollection';
-import { useGetProductsQuery } from '@/api/productApi';
+import { useGetProductsQuery } from '@/api/products/productsApi';
 
 export default function HomePage() {
   const { data: dataProducts, isLoading } = useGetProductsQuery({});

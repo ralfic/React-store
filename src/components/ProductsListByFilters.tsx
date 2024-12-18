@@ -1,5 +1,6 @@
 import { IProduct, TCategory } from '../types';
 import ProductCard from './ProductCard';
+import { Button } from './uikit/Button';
 import ProductsListSkeleton from './uikit/ProductsListSkeleton';
 
 interface IProps {
@@ -19,12 +20,12 @@ export default function ProductsListByFilters({
 }: IProps) {
   return (
     <div className="w-full">
-      <div className="flex items-center justify-self-start">
+      <div className="flex items-center">
         <h3 className="text-xl font-semibold mb-12 first-letter:uppercase">
           {currentCategory === null ? 'All' : currentCategory}
         </h3>
       </div>
-      <div className="grid grid-cols-3 gap-6 mb-20">
+      <div className="grid grid-cols-3 gap-6 mb-20 max-lg:grid-cols-2">
         {!isLoading && (
           <>
             {products &&
@@ -39,12 +40,14 @@ export default function ProductsListByFilters({
           </>
         )}
       </div>
-      <button
+      <Button
+        type="outline"
+        rounded={true}
         onClick={increaseLimitProducts}
-        className="border border-black bg-transparent font-medium py-2 px-10 rounded-3xl mx-auto block"
+        className="max-w-max mx-auto"
       >
         Show more
-      </button>
+      </Button>
     </div>
   );
 }

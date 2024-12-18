@@ -1,5 +1,6 @@
+import { IProduct, IFilters } from '@/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IFilters, IProduct } from '../../types';
+
 
 export interface State {
   products: IProduct[];
@@ -12,7 +13,7 @@ const initialState: State = {
     page: 1,
     limit: 9,
     category: null,
-    sort: null
+    sort: null,
   },
 };
 

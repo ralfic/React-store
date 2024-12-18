@@ -10,7 +10,7 @@ export default function BannerShopping() {
         </h2>
         <p className="text-xl mb-7">Experience music like never before</p>
         <Link to={'/shope'}>
-          <Button>Shopping Now</Button>
+          <Button size="lg">Shopping Now</Button>
         </Link>
       </div>
     </article>
