@@ -15,6 +15,7 @@ export default {
       },
       maxWidth: {
         wrapper: '1120px',
+        window: '1440px',
       },
       screens: {
         xs: '480px',
