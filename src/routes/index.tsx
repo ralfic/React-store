@@ -1,6 +1,8 @@
 import { RouterProvider } from 'react-router-dom';
-import { routesList } from './routes';
+import { rootRoute, authRoute } from './routes';
+import { useAppSelector } from '@/store';
 
 export function MyAppRouter() {
-  return <RouterProvider router={routesList} />;
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+  return <RouterProvider router={isAuthenticated ? rootRoute : authRoute} />;
 }

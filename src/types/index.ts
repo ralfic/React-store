@@ -24,6 +24,14 @@ export interface IFilters {
   sort: string | null;
 }
 
+export interface IUser {
+  id: number;
+  email: string;
+  name: string;
+  password: string;
+  remember?: boolean;
+}
+
 export type TCategory =
   | 'tv'
   | 'audio'

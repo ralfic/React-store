@@ -3,6 +3,7 @@ import { toggleCart } from '@/store/slices/flyoutCartSlice';
 import { Box, Float, Circle } from '@chakra-ui/react';
 import { CiSearch } from 'react-icons/ci';
 import { PiUserCircleLight, PiShoppingCartSimpleLight } from 'react-icons/pi';
+import { Link } from 'react-router-dom';
 
 export default function HeaderFeature() {
   const dispatch = useAppDispatch();
@@ -10,9 +11,9 @@ export default function HeaderFeature() {
 
   return (
     <div className="flex gap-2">
-      <button>
+      <Link to={'/signin'}>
         <CiSearch className="w-6 h-6" />
-      </button>
+      </Link>
       <button>
         <PiUserCircleLight className="w-6 h-6" />
       </button>
