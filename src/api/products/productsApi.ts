@@ -8,6 +8,8 @@ import {
 } from './types';
 import { api } from '../api';
 
+const BASE_URL = import.meta.env.VITE_PRODUCTS_BASE_API_URL;
+
 export const productsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getProductsByFilters: builder.query<IProductsResponse, ParamsFiltersType>({
@@ -16,7 +18,7 @@ export const productsApi = api.injectEndpoints({
         const { page = 1, limit = 8, category, sort } = params || {};
         if (sort) {
           return {
-            url: `products${category ? '/category' : ''}`,
+            url: BASE_URL + `products${category ? '/category' : ''}`,
             params: {
               page,
               limit,
@@ -26,7 +28,7 @@ export const productsApi = api.injectEndpoints({
           };
         }
         return {
-          url: `products${category ? '/category' : ''}`,
+          url: BASE_URL + `products${category ? '/category' : ''}`,
           params: {
             page,
             limit,
@@ -51,7 +53,9 @@ export const productsApi = api.injectEndpoints({
         const randomCategory = getRandomCategory();
         const { limit = 8, random } = params || {};
         return {
-          url: `products${random ? `/category?type=${randomCategory}` : ''}`,
+          url:
+            BASE_URL +
+            `products${random ? `/category?type=${randomCategory}` : ''}`,
           params: {
             limit,
           },
@@ -63,7 +67,7 @@ export const productsApi = api.injectEndpoints({
         keepUnusedDataFor: 0,
         query: (id) => {
           return {
-            url: `products/${id}`,
+            url: BASE_URL + `products/${id}`,
           };
         },
       }
