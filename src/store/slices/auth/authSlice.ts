@@ -3,18 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 interface AuthState {
   isAuthenticated: boolean;
   token: string | null;
-  user: {
-    id: number;
-    username: string;
-    email: string;
-    accessToken: string;
-  } | null;
+  id: number | null;
 }
 
 const initialState: AuthState = {
   isAuthenticated: false,
   token: null,
-  user: null,
+  id: null,
 };
 
 const authSlice = createSlice({
@@ -24,12 +19,12 @@ const authSlice = createSlice({
     setAuth: (state, action) => {
       state.isAuthenticated = true;
       state.token = action.payload.accessToken;
-      state.user = action.payload.user;
+      state.id = action.payload.user.id;
     },
     clearAuth: (state) => {
       state.isAuthenticated = false;
       state.token = null;
-      state.user = null;
+      state.id = null;
     },
   },
 });

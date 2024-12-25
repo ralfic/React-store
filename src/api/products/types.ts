@@ -1,13 +1,13 @@
 import { IProduct, IFilters } from '@/types';
 import { TypeStatus } from '../types';
 
-export interface IProductsResponse {
+export interface ProductsResponse {
   products: IProduct[];
   status: TypeStatus;
   message: string;
 }
 
-export interface ISingleProductResponse {
+export interface SingleProductResponse {
   product: IProduct;
   status: TypeStatus;
   message: string;

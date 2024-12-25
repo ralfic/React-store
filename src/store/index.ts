@@ -17,26 +17,32 @@ import cartReducer from './slices/cart/cartSlice';
 import flyoutCarReducer from './slices/flyoutCartSlice';
 import authReducer from './slices/auth/authSlice';
 import userReducer from './slices/user/userSlice';
+import wishlistReducer from './slices/wishlist/wishlistSlice';
 
 const cartPersistConfig = {
-  key: 'cartReducer',
+  key: 'cart',
   storage,
 };
 
 const authPersistConfig = {
-  key: 'authReducer',
+  key: 'auth',
   storage,
 };
 
-const cartPersistedReducer = persistReducer(cartPersistConfig, cartReducer);
-const authPersistReducer = persistReducer(authPersistConfig, authReducer);
+const wishlistPersistConfig = {
+  key: 'wishlist',
+  storage,
+};
+
+
 
 const rootReducer = combineReducers({
   products: productsReducer,
-  auth: authPersistReducer,
+  auth: persistReducer(authPersistConfig, authReducer),
   user: userReducer,
+  wishlist: persistReducer(wishlistPersistConfig, wishlistReducer),
   flyoutCar: flyoutCarReducer,
-  cart: cartPersistedReducer,
+  cart: persistReducer(cartPersistConfig, cartReducer),
   [api.reducerPath]: api.reducer,
 });
 

@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
 import { IProduct, TCategory } from '../types';
 import ProductCard from './ProductCard';
 import { Button } from './uikit/Button';
 import ProductsListSkeleton from './uikit/ProductsListSkeleton';
+import { useAppSelector } from '@/store';
 
 interface IProps {
   products?: IProduct[];
@@ -18,6 +20,17 @@ export default function ProductsListByFilters({
   isLoading,
   limit,
 }: IProps) {
+  const filters = useAppSelector((state) => state.products.filters);
+  const [isUpdate, setIsUpdate] = useState(true);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsUpdate(false);
+    }, 1200);
+    return () => {
+      setIsUpdate(true)
+      clearTimeout(timeout);
+    };
+  }, [filters]);
   return (
     <div className="w-full">
       <div className="flex items-center">
@@ -28,10 +41,16 @@ export default function ProductsListByFilters({
       <div className="grid grid-cols-3 gap-6 mb-20 max-lg:grid-cols-2">
         {!isLoading && (
           <>
-            {products &&
-              products.map((product, index) => (
-                <ProductCard key={index} product={product} />
-              ))}
+            {isUpdate ? (
+              <ProductsListSkeleton limit={limit} />
+            ) : (
+              <>
+                {products &&
+                  products.map((product, index) => (
+                    <ProductCard key={index} product={product} />
+                  ))}
+              </>
+            )}
           </>
         )}
         {isLoading && (

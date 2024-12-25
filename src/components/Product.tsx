@@ -1,10 +1,16 @@
 import { IProduct } from '@/types';
-import { PiHeartLight } from 'react-icons/pi';
+import { PiHeartFill, PiHeartLight } from 'react-icons/pi';
 import { Button } from '@/components/uikit/Button';
 import calculateDiscount from '@/helpers/calculateDiscount';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { addItem } from '@/store/slices/cart/cartSlice';
 import { toggleCart } from '@/store/slices/flyoutCartSlice';
+import {
+  addItemToWishList,
+  removeItemFromWishList,
+} from '@/store/slices/wishlist/wishlistSlice';
+import { useState } from 'react';
+import clsx from 'clsx';
 
 interface IProps {
   product: IProduct | undefined;
@@ -12,14 +18,18 @@ interface IProps {
 
 export default function Product({ product }: IProps) {
   const dispatch = useAppDispatch();
+  const itemsWishlist = useAppSelector((state) => state.wishlist.items);
   const items = useAppSelector((state) => state.cart.items);
   const thereIsInCar = !!items.find((i) => i.id === product?.id);
+  const thereIsInWishlist = !!itemsWishlist.find((i) => i.id === product?.id);
+  const [openTitle, setOpenTitle] = useState(false);
+  const [openDescription, setOpenDescription] = useState(false);
 
   return (
     <section className="flex gap-14 justify-between relative pb-10">
       <div className="max-w-[548px] content-center">
         {product?.discount && (
-          <span className="bg-green-400 text-white py-1 absolute top-4 left-4  rounded-[4px] px-3 uppercase font-bold text-sm">
+          <span className="bg-green-400 text-white py-0.5 absolute top-4 left-4  rounded-[4px] px-2.5 uppercase font-bold text-sm">
             {`-${product?.discount}%`}
           </span>
         )}
@@ -27,10 +37,22 @@ export default function Product({ product }: IProps) {
       </div>
       <div>
         <div className="flex flex-col gap-4 max-w-[505px] pb-6 border-b">
-          <h1 className="font-Poppins font-medium text-3xl line-clamp-2">
+          <h1
+            className={clsx(
+              'font-Poppins font-medium text-3xl line-clamp-2 cursor-pointer',
+              openTitle && 'line-clamp-none'
+            )}
+            onClick={() => setOpenTitle((prev) => !prev)}
+          >
             {product?.title}
           </h1>
-          <p className="text-gray-400 whitespace-break-spaces line-clamp-6">
+          <p
+            className={clsx(
+              'text-gray-400 whitespace-break-spaces line-clamp-6 cursor-pointer',
+              openDescription && 'line-clamp-none'
+            )}
+            onClick={() => setOpenDescription((prev) => !prev)}
+          >
             {product?.description}.
           </p>
           <div className="font-medium flex gap-2 font-Poppins text-2xl ">
@@ -75,7 +97,24 @@ export default function Product({ product }: IProps) {
         </div>
         <div className="py-6 flex flex-col gap-4">
           <div className="flex gap-4">
-            <Button icon={<PiHeartLight className="w-6 h-6" />} type="outline">
+            <Button
+              icon={
+                thereIsInWishlist ? (
+                  <PiHeartFill className="fill-red-500 h-6 w-6" />
+                ) : (
+                  <PiHeartLight className="h-6 w-6" />
+                )
+              }
+              type="outline"
+              onClick={() => {
+                if (!product) return;
+                if (thereIsInWishlist) {
+                  dispatch(removeItemFromWishList(product));
+                } else {
+                  dispatch(addItemToWishList(product));
+                }
+              }}
+            >
               Wishlist
             </Button>
             <Button

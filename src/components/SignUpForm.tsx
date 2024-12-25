@@ -23,7 +23,7 @@ const schema = yup.object().shape({
     .min(8)
     .max(32)
     .required('Password is a required field'),
-    name: yup.string().min(3).max(32).required('Name is a required field'),
+  name: yup.string().min(3).max(32).required('Name is a required field'),
   agree: yup
     .bool()
     .required('You must agree to the terms')
