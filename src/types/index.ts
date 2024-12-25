@@ -30,6 +30,9 @@ export interface IUser {
   name: string;
   password: string;
   remember?: boolean;
+  firstName: string;
+  lastName: string;
+  orders: string[];
 }
 
 export type TCategory =

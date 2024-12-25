@@ -6,12 +6,18 @@ import ProductPage from '@/pages/ProductPage';
 import SignUpForm from '@/components/SignUpForm';
 import SignInForm from '@/components/SignInForm';
 import AuthLayout from '@/layouts/AuthLayout';
-import UserPage from '@/pages/UserPage';
+import AccountPage from '@/pages/AccountPage';
+import AccountDetails from '@/components/account/AccountDetails';
+import AccountAddress from '@/components/account/AccountAddress';
+import AccountOrders from '@/components/account/AccountOrders';
+import AccountWishlist from '@/components/account/AccountWishlist';
+import CartPage from '@/pages/CartPage';
+import ErrorPage from '@/pages/ErrorPage';
 
 export const rootRoute = createBrowserRouter([
   {
     element: <App />,
-    errorElement: <div>Error</div>,
+    errorElement: <ErrorPage />,
     children: [
       { path: '/', element: <HomePage /> },
       { path: '/shope', element: <ShopePage /> },
@@ -19,7 +25,17 @@ export const rootRoute = createBrowserRouter([
         path: '/product/:id',
         element: <ProductPage />,
       },
-      { path: '/user', element: <UserPage /> },
+      {
+        path: '/account',
+        element: <AccountPage />,
+        children: [
+          { path: '/account', element: <AccountDetails /> },
+          { path: '/account/address', element: <AccountAddress /> },
+          { path: '/account/orders', element: <AccountOrders /> },
+          { path: '/account/wishlist', element: <AccountWishlist /> },
+        ],
+      },
+      { path: '/cart', element: <CartPage /> },
     ],
   },
 ]);
@@ -27,7 +43,7 @@ export const rootRoute = createBrowserRouter([
 export const authRoute = createBrowserRouter([
   {
     element: <App />,
-    errorElement: <div>Error</div>,
+    errorElement: <ErrorPage />,
     children: [
       { path: '/', element: <HomePage /> },
       { path: '/shope', element: <ShopePage /> },
@@ -40,7 +56,7 @@ export const authRoute = createBrowserRouter([
   {
     path: '/',
     element: <AuthLayout />,
-    errorElement: <div>Error</div>,
+    errorElement: <ErrorPage />,
     children: [
       { path: '/signup', element: <SignUpForm /> },
       { path: '/signin', element: <SignInForm /> },

@@ -1,24 +1,25 @@
 import getRandomCategory from '@/helpers/getRandomCategory';
 import { setProducts } from '../../store/slices/products/productsSlice';
 import {
-  IProductsResponse,
-  ISingleProductResponse,
+  ProductsResponse,
+  SingleProductResponse,
   ParamsFiltersType,
   ParamsProductsType,
 } from './types';
 import { api } from '../api';
+import { PRODUCT_API_URL } from '@/constants/constants';
 
-const BASE_URL = import.meta.env.VITE_PRODUCTS_BASE_API_URL;
+
 
 export const productsApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getProductsByFilters: builder.query<IProductsResponse, ParamsFiltersType>({
+    getProductsByFilters: builder.query<ProductsResponse, ParamsFiltersType>({
       keepUnusedDataFor: 0,
       query: (params) => {
         const { page = 1, limit = 8, category, sort } = params || {};
         if (sort) {
           return {
-            url: BASE_URL + `products${category ? '/category' : ''}`,
+            url: PRODUCT_API_URL + `products${category ? '/category' : ''}`,
             params: {
               page,
               limit,
@@ -28,7 +29,7 @@ export const productsApi = api.injectEndpoints({
           };
         }
         return {
-          url: BASE_URL + `products${category ? '/category' : ''}`,
+          url: PRODUCT_API_URL + `products${category ? '/category' : ''}`,
           params: {
             page,
             limit,
@@ -47,14 +48,14 @@ export const productsApi = api.injectEndpoints({
         }
       },
     }),
-    getProducts: builder.query<IProductsResponse, ParamsProductsType>({
+    getProducts: builder.query<ProductsResponse, ParamsProductsType>({
       keepUnusedDataFor: 0,
       query: (params) => {
         const randomCategory = getRandomCategory();
         const { limit = 8, random } = params || {};
         return {
           url:
-            BASE_URL +
+            PRODUCT_API_URL +
             `products${random ? `/category?type=${randomCategory}` : ''}`,
           params: {
             limit,
@@ -62,12 +63,12 @@ export const productsApi = api.injectEndpoints({
         };
       },
     }),
-    getSingleProduct: builder.query<ISingleProductResponse, string | undefined>(
+    getSingleProduct: builder.query<SingleProductResponse, string | undefined>(
       {
         keepUnusedDataFor: 0,
         query: (id) => {
           return {
-            url: BASE_URL + `products/${id}`,
+            url: PRODUCT_API_URL + `products/${id}`,
           };
         },
       }

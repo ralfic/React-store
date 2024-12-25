@@ -8,15 +8,16 @@ import { Link } from 'react-router-dom';
 export default function HeaderFeature() {
   const dispatch = useAppDispatch();
   const { totalQuantity } = useAppSelector((state) => state.cart);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   return (
     <div className="flex gap-2">
-      <Link to={'/signin'}>
-        <CiSearch className="w-6 h-6" />
-      </Link>
       <button>
-        <PiUserCircleLight className="w-6 h-6" />
+        <CiSearch className="w-6 h-6" />
       </button>
+      <Link to={isAuthenticated ? '/account' : '/signin'}>
+        <PiUserCircleLight className="w-6 h-6" />
+      </Link>
       <button
         className="flex gap-y-1 items-center justify-center"
         onClick={() => dispatch(toggleCart(true))}

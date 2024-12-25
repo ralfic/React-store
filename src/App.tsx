@@ -3,7 +3,7 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import { useEffect } from 'react';
 import { FlyoutCart } from './components/FlyoutCart';
-import { useGetUserQuery } from './api/user/userApi';
+import { useLazyGetUserQuery } from './api/user/userApi';
 import { useAppDispatch, useAppSelector } from './store';
 import { setUser } from './store/slices/user/userSlice';
 import { clearAuth } from './store/slices/auth/authSlice';
@@ -11,17 +11,22 @@ import { clearAuth } from './store/slices/auth/authSlice';
 export default function App() {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
-  const { user, token } = useAppSelector((state) => state.auth);
-  const { data, error } = useGetUserQuery({
-    id: user?.id,
-    token: token,
-  });
+  const { id, token } = useAppSelector((state) => state.auth);
+  const [trigger, { data, error }] = useLazyGetUserQuery();
 
-  if (data) {
-    dispatch(setUser(data));
-  } else if (error) {
-    dispatch(clearAuth());
-  }
+  useEffect(() => {
+    if (id && token) {
+      trigger({ id, token });
+    }
+  }, [id, token, trigger]);
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setUser(data));
+    } else if (error) {
+      dispatch(clearAuth());
+    }
+  }, [data, error, dispatch]);
 
   useEffect(() => {
     window.scrollTo({
@@ -30,6 +35,7 @@ export default function App() {
       behavior: 'smooth',
     });
   }, [pathname]);
+  
   return (
     <div>
       <FlyoutCart />
