@@ -2,11 +2,14 @@ import { useSignInMutation } from '@/api/auth/authApi';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/uikit/Button';
 import { useAppDispatch } from '@/store';
+import ErrorMessageForm from '@/components/uikit/ErrorMessageForm';
 import { setAuth } from '@/store/slices/auth/authSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
+
+import isSerializedError from '@/helpers/isSerializedError';
 
 interface ISignInForm {
   email: string;
@@ -16,21 +19,24 @@ interface ISignInForm {
 
 const schema = yup.object().shape({
   email: yup.string().email().required('Email is a required field'),
-  password: yup
-    .string()
-    .min(8)
-    .max(32)
-    .required('Password is a required field'),
+  password: yup.string().required('Password is a required field'),
   remember: yup.boolean(),
 });
 
 export default function SignInForm() {
-  const { register, handleSubmit, reset, setValue } = useForm<ISignInForm>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    setValue,
+  } = useForm<ISignInForm>({
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
 
-  const [signIp] = useSignInMutation();
+  const [signIn, { error }] = useSignInMutation();
+  console.log(error);
 
   const navigate = useNavigate();
 
@@ -38,7 +44,7 @@ export default function SignInForm() {
 
   const onSubmit: SubmitHandler<ISignInForm> = async (data) => {
     try {
-      const response = await signIp(data).unwrap();
+      const response = await signIn(data).unwrap();
       if (response) {
         dispatch(setAuth(response));
         navigate('/');
@@ -68,22 +74,30 @@ export default function SignInForm() {
         </p>
       </div>
       <div className="flex flex-col gap-6 mb-8">
-        <input
-          {...register('email')}
-          className="border-b py-2 outline-none"
-          type="text"
-          placeholder="Your email address"
-        />
-        <input
-          {...register('password')}
-          className="border-b py-2 outline-none"
-          type="text"
-          placeholder="Password"
-        />
+        <div className="flex flex-col gap-0.5">
+          <input
+            {...register('email')}
+            className="border-b py-2 outline-none"
+            type="text"
+            placeholder="Your email address"
+          />
+          <ErrorMessageForm message={errors?.email?.message} />
+        </div>
+        <div className="flex flex-col gap-0.5">
+          <input
+            {...register('password')}
+            className="border-b py-2 outline-none"
+            type="text"
+            placeholder="Password"
+          />
+          <ErrorMessageForm message={errors?.password?.message} />
+          <ErrorMessageForm
+            message={(isSerializedError(error) && error.data) || ''}
+          />
+        </div>
         <div className="flex gap-2">
           <Checkbox
             variant={'subtle'}
-            {...register('remember')}
             onCheckedChange={(e) => setValue('remember', !!e.checked)}
           />
           <div className="flex justify-between w-full">

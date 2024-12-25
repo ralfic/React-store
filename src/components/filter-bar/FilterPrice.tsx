@@ -1,6 +1,7 @@
 import { Checkbox } from '@/components/ui/checkbox';
 import { useState } from 'react';
 import FilterSkeleton from '../uikit/FilterSkeleton';
+import { useAppSelector } from '@/store';
 
 const valuePrice = [
   { title: 'all', sortValue: null },
@@ -15,6 +16,9 @@ interface IProps {
 
 export default function FilterPrice({ isLoading, setSelectSort }: IProps) {
   const [selectCheckBox, setSelectCheckBox] = useState('all');
+  const currentCategory = useAppSelector(
+    (state) => state.products.filters.category
+  );
 
   return (
     <div>
@@ -35,6 +39,7 @@ export default function FilterPrice({ isLoading, setSelectSort }: IProps) {
                   colorPalette="white"
                   variant="subtle"
                   size="lg"
+                  disabled={currentCategory === null}
                 />
               </li>
             ))}

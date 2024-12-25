@@ -1,14 +1,14 @@
 import { CategoriesApiResponse } from './types';
 import { api } from '../api';
+import { PRODUCT_API_URL } from '@/constants/constants';
 
-const BASE_URL = import.meta.env.VITE_PRODUCTS_BASE_API_URL;
 
 export const categoriesApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getCategories: builder.query<CategoriesApiResponse, null>({
       query: () => {
         return {
-          url: BASE_URL + `products/category`,
+          url: PRODUCT_API_URL + `products/category`,
         };
       },
     }),

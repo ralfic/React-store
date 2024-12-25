@@ -21,6 +21,7 @@ export function FlyoutCart() {
   const { items, totalPrice, totalDiscount, price } = useAppSelector(
     (state) => state.cart
   );
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   return (
     <DrawerRoot
@@ -31,11 +32,8 @@ export function FlyoutCart() {
       <DrawerBackdrop />
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle className="font-Poppins font-medium text-2xl flex justify-between">
+          <DrawerTitle className="font-Poppins font-medium text-2xl ">
             <h2> Cart</h2>
-            <button className='pr-4' onClick={() => dispatch(clearCart())}>
-              <BsTrash3Fill className="w-5 h-5" />
-            </button>
           </DrawerTitle>
         </DrawerHeader>
         <DrawerBody className="flex gap-6 flex-col ">
@@ -59,10 +57,19 @@ export function FlyoutCart() {
                 <p>{`$${totalPrice}`}</p>
               </div>
             </div>
-            <Button>Checkout</Button>
+            <div className="flex gap-2">
+              <Button>Checkout</Button>
+              <button
+                className=" bg-gray-200 rounded-lg px-3"
+                onClick={() => dispatch(clearCart())}
+              >
+                <BsTrash3Fill className="w-5 h-5 mx-auto" />
+              </button>
+            </div>
             <Link
+              onClick={() => dispatch(toggleCart(false))}
               className="font-semibold border-b border-black text-center self-center"
-              to={'/'}
+              to={isAuthenticated ? '/cart' : '/signin'}
             >
               View Cart
             </Link>

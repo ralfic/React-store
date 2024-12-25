@@ -1,11 +1,8 @@
+import { IUser } from '@/types';
+
 export interface AuthResponse {
   token: string;
-  user: {
-    id: number;
-    name: string;
-    email: string;
-    remember?: boolean;
-  };
+  user: IUser;
 }
 
 export interface AuthRequest {
