@@ -1,12 +1,12 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import Footer from './components/footer/Footer';
-import Header from './components/header/Header';
 import { useEffect } from 'react';
 import { FlyoutCart } from './components/cart/FlyoutCart';
 import { useLazyGetUserQuery } from './api/user/userApi';
 import { useAppDispatch, useAppSelector } from './store';
 import { setUser } from './store/slices/user/userSlice';
 import { clearAuth } from './store/slices/auth/authSlice';
+import Header from './components/header/Header';
+import Footer from './components/footer/Footer';
 
 export default function App() {
   const dispatch = useAppDispatch();
