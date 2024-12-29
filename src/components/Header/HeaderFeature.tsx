@@ -28,7 +28,7 @@ export default function HeaderFeature() {
             <Float>
               <Circle
                 className="text-xs font-semibold font-Poppins"
-                size="5"
+                size="4.5"
                 bg="black"
                 color="white"
               >

@@ -1,8 +1,8 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header';
+import Footer from './components/footer/Footer';
+import Header from './components/header/Header';
 import { useEffect } from 'react';
-import { FlyoutCart } from './components/FlyoutCart';
+import { FlyoutCart } from './components/cart/FlyoutCart';
 import { useLazyGetUserQuery } from './api/user/userApi';
 import { useAppDispatch, useAppSelector } from './store';
 import { setUser } from './store/slices/user/userSlice';
@@ -14,11 +14,13 @@ export default function App() {
   const { id, token } = useAppSelector((state) => state.auth);
   const [trigger, { data, error }] = useLazyGetUserQuery();
 
+  // const autht = JSON.parse(localStorage.getItem("persist:auth"))
+
   useEffect(() => {
     if (id && token) {
       trigger({ id, token });
     }
-  }, [id, token, trigger]);
+  }, [id, token]);
 
   useEffect(() => {
     if (data) {
@@ -26,7 +28,7 @@ export default function App() {
     } else if (error) {
       dispatch(clearAuth());
     }
-  }, [data, error, dispatch]);
+  }, [data, error]);
 
   useEffect(() => {
     window.scrollTo({
@@ -35,7 +37,7 @@ export default function App() {
       behavior: 'smooth',
     });
   }, [pathname]);
-  
+
   return (
     <div>
       <FlyoutCart />

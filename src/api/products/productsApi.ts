@@ -9,8 +9,6 @@ import {
 import { api } from '../api';
 import { PRODUCT_API_URL } from '@/constants/constants';
 
-
-
 export const productsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getProductsByFilters: builder.query<ProductsResponse, ParamsFiltersType>({
@@ -44,7 +42,11 @@ export const productsApi = api.injectEndpoints({
 
           dispatch(setProducts(data.products));
         } catch (error) {
-          console.log(error);
+          if (error instanceof Error) {
+            throw new Error(error.message);
+          } else {
+            throw new Error(String(error));
+          }
         }
       },
     }),
@@ -63,16 +65,14 @@ export const productsApi = api.injectEndpoints({
         };
       },
     }),
-    getSingleProduct: builder.query<SingleProductResponse, string | undefined>(
-      {
-        keepUnusedDataFor: 0,
-        query: (id) => {
-          return {
-            url: PRODUCT_API_URL + `products/${id}`,
-          };
-        },
-      }
-    ),
+    getSingleProduct: builder.query<SingleProductResponse, string | undefined>({
+      keepUnusedDataFor: 0,
+      query: (id) => {
+        return {
+          url: PRODUCT_API_URL + `products/${id}`,
+        };
+      },
+    }),
   }),
 });
 export const {

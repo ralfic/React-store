@@ -9,8 +9,8 @@ import {
   DrawerTitle,
 } from '@/components/ui/drawer';
 import { useAppDispatch, useAppSelector } from '@/store';
-import FlyoutCartItem from './FlyoutCartItem';
-import { Button } from './uikit/Button';
+import CartItem from './CartItem';
+import { Button } from '../uikit/Button';
 import { Link } from 'react-router-dom';
 import { toggleCart } from '@/store/slices/flyoutCartSlice';
 import { BsTrash3Fill } from 'react-icons/bs';
@@ -36,9 +36,9 @@ export function FlyoutCart() {
             <h2> Cart</h2>
           </DrawerTitle>
         </DrawerHeader>
-        <DrawerBody className="flex gap-6 flex-col ">
+        <DrawerBody className="flex gap-6 flex-col scroll">
           {items.map((items) => (
-            <FlyoutCartItem item={items} key={items.id} />
+            <CartItem item={items} key={items.id} variant="flyout-cart" />
           ))}
         </DrawerBody>
         <DrawerFooter>
@@ -58,7 +58,13 @@ export function FlyoutCart() {
               </div>
             </div>
             <div className="flex gap-2">
-              <Button>Checkout</Button>
+              <Link
+                onClick={() => dispatch(toggleCart(false))}
+                className="w-full"
+                to={isAuthenticated ? '/cart' : '/signin'}
+              >
+                <Button>Checkout</Button>
+              </Link>
               <button
                 className=" bg-gray-200 rounded-lg px-3"
                 onClick={() => dispatch(clearCart())}
