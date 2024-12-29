@@ -8,6 +8,7 @@ interface IButton {
   className?: string;
   icon?: ReactNode;
   size?: 'lg' | 'base';
+  disabled?: boolean;
   onClick?: () => void;
 }
 
@@ -19,9 +20,11 @@ export function Button({
   rounded = false,
   size = 'base',
   onClick,
+  disabled = false,
 }: IButton) {
   return (
     <button
+      disabled={disabled}
       onClick={onClick}
       className={clsx(
         'font-medium leading-8 outline-none transition-colors border flex gap-2 items-center justify-center w-full font-Inter',

@@ -1,7 +1,5 @@
-import { Input } from '@chakra-ui/react';
-import { Field } from '@/components/ui/field';
 import { Button } from '../../uikit/Button';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { useChangeUserPasswordMutation } from '@/api/user/userApi';
 import * as yup from 'yup';
@@ -11,6 +9,8 @@ import ErrorMessageForm from '../../uikit/ErrorMessageForm';
 import { clearAuth } from '@/store/slices/auth/authSlice';
 import { clearUser } from '@/store/slices/user/userSlice';
 import isFetchBaseQueryError from '@/helpers/isFetchBaseQueryError';
+import FormInput from '@/components/uikit/FormInput';
+import { useEffect } from 'react';
 
 interface IFormValues {
   oldPassword: string;
@@ -27,24 +27,29 @@ const schema = yup.object().shape({
     .required('Repeat password is required'),
 });
 
-
-
 export default function ChangePasswordForm() {
   const dispatch = useAppDispatch();
   const { email } = useAppSelector((state) => state.user);
-  const [changeUserPassword, { data: resp, error }] = useChangeUserPasswordMutation();
+  const [changeUserPassword, { data: resp, error }] =
+    useChangeUserPasswordMutation();
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm<IFormValues>({
+  const methods = useForm<IFormValues>({
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
 
+  const { reset, handleSubmit } = methods;
+
   const navigation = useNavigate();
+
+  useEffect(() => {
+    if (resp) {
+      navigation('/');
+      reset();
+      dispatch(clearAuth());
+      dispatch(clearUser());
+    }
+  }, [resp]);
 
   const onSubmit: SubmitHandler<IFormValues> = async (data) => {
     const { newPassword, oldPassword } = data;
@@ -54,59 +59,41 @@ export default function ChangePasswordForm() {
         oldPassword,
         email,
       });
-
-      if (!error && resp) {
-        navigation('/');
-        reset();
-        dispatch(clearAuth());
-        dispatch(clearUser());
-      }
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error(error.message);
+        throw error;
       } else {
-        throw new Error(String(error));
+        throw new Error(`Unexpected error: ${String(error)}`);
       }
     }
   };
+
   return (
-    <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="text-xl font-semibold mt-10">Password</h2>
-      <Field className="text-gray-600" label="Old password">
-        <Input
-          {...register('oldPassword')}
-          className="border pl-4 w-full"
+    <FormProvider {...methods}>
+      <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
+        <h2 className="text-xl font-semibold mt-10">Password</h2>
+        <FormInput
+          name="oldPassword"
+          label="Old password"
           placeholder="Old password"
-          variant="outline"
-          colorPalette="black"
         />
-        <ErrorMessageForm message={errors?.oldPassword?.message} />
-      </Field>
-      <Field className="text-gray-600" label="New password">
-        <Input
-          {...register('newPassword')}
-          className="border pl-4 w-full"
+        <FormInput
+          name="newPassword"
+          label="New password"
           placeholder="New password"
-          variant="outline"
-          colorPalette="black"
         />
-      </Field>
-      <Field className="text-gray-600" label="Repeat new password">
-        <Input
-          {...register('repeatPassword')}
-          className="border pl-4 w-full"
+        <FormInput
+          name="repeatPassword"
+          label="Repeat new password"
           placeholder="Repeat new password"
-          variant="outline"
-          colorPalette="black"
         />
-        <ErrorMessageForm message={errors?.repeatPassword?.message} />
-      </Field>
-      <ErrorMessageForm
-        message={`${
-          (isFetchBaseQueryError(error) && error?.data?.message) || ''
-        }`}
-      />
-      <Button className="max-w-fit">Save password</Button>
-    </form>
+        <ErrorMessageForm
+          message={`${
+            (isFetchBaseQueryError(error) && error?.data?.message) || ''
+          }`}
+        />
+        <Button className="max-w-fit">Save password</Button>
+      </form>
+    </FormProvider>
   );
 }

@@ -2,8 +2,6 @@ import { BD_JSON_API_URL } from '@/constants/constants';
 import { api } from '../api';
 import { AuthResponse, AuthRequest } from './types';
 
-
-
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
     signIn: builder.mutation<AuthResponse, AuthRequest>({

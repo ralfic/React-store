@@ -1,4 +1,9 @@
+import { useGetOrdersQuery } from '@/api/user/userApi';
+import { useAppSelector } from '@/store';
+
 export default function AccountOrders() {
+  const { token } = useAppSelector((state) => state.auth);
+  const { data } = useGetOrdersQuery(token);
   return (
     <div className="px-[72px] w-full">
       <h2 className="text-xl font-semibold mb-10">Orders History</h2>
@@ -12,18 +17,17 @@ export default function AccountOrders() {
           </tr>
         </thead>
         <tbody>
-          <tr className="border-b ">
-            <td className="py-6">#3456_768</td>
-            <td className="py-6">October 17, 2023</td>
-            <td className="py-6">Delivered</td>
-            <td className="py-6">$1234.00</td>
-          </tr>
-          <tr className="border-b">
-            <td className="py-6">#3456_768</td>
-            <td className="py-6">October 17, 2023</td>
-            <td className="py-6">Delivered</td>
-            <td className="py-6">$1234.00</td>
-          </tr>
+          {data &&
+            data.map((order, index) => (
+              <tr key={index} className="border-b">
+                <td className="py-6 text-nowrap whitespace-nowrap overflow-hidden text-ellipsis max-w-[120px] pr-2">
+                  {order.id}
+                </td>
+                <td className="py-6">{order.dateCreated}</td>
+                <td className="py-6">Delivered</td>
+                <td className="py-6">${order.totalPrice}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

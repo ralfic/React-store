@@ -10,7 +10,7 @@ export default function ErrorPage() {
           <h1 className="text-9xl font-semibold text-center">404</h1>
           <p className="text-2xl text-center">page not found</p>
         </div>
-        <Button className="w-fit" size='lg' onClick={() => navigate('/')}>
+        <Button className="max-w-fit" size='lg' onClick={() => navigate('/')}>
           Go home
         </Button>
       </div>

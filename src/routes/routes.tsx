@@ -8,7 +8,6 @@ import SignInForm from '@/components/SignInForm';
 import AuthLayout from '@/layouts/AuthLayout';
 import AccountPage from '@/pages/AccountPage';
 import AccountDetails from '@/components/account/AccountDetails';
-import AccountAddress from '@/components/account/AccountAddress';
 import AccountOrders from '@/components/account/AccountOrders';
 import AccountWishlist from '@/components/account/AccountWishlist';
 import CartPage from '@/pages/CartPage';
@@ -30,7 +29,6 @@ export const rootRoute = createBrowserRouter([
         element: <AccountPage />,
         children: [
           { path: '/account', element: <AccountDetails /> },
-          { path: '/account/address', element: <AccountAddress /> },
           { path: '/account/orders', element: <AccountOrders /> },
           { path: '/account/wishlist', element: <AccountWishlist /> },
         ],

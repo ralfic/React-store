@@ -1,35 +1,32 @@
+import { useAppDispatch } from '@/store';
+import { decreaseItemQuantity, increaseItemQuantity } from '@/store/slices/cart/cartSlice';
+import { ICartItem } from '@/types';
 import clsx from 'clsx';
 import { PiMinus, PiPlus } from 'react-icons/pi';
 
 interface IProps {
-  quantityProduct: number;
-  fnIncrease: () => void;
-  fnDecrease: () => void;
+  item: ICartItem;
   type: 'solid' | 'outline';
 }
 
-export default function ProductQuantity({
-  quantityProduct,
-  type = 'solid',
-  fnIncrease,
-  fnDecrease,
-}: IProps) {
+export default function ProductQuantity({ item, type = 'solid' }: IProps) {
+  const dispatch = useAppDispatch();
   return (
     <div
       className={clsx(
-        'py-2 px-4 flex rounded-lg self-start',
+        'py-1.5 px-3.5 flex rounded-md self-start',
         type === 'solid'
           ? 'bg-gray-100 gap-4 '
           : ' bg-transparent border border-black gap-3'
       )}
     >
-      <button disabled={quantityProduct === 1} onClick={fnDecrease}>
+      <button disabled={item.quantity === 1} onClick={() => dispatch(decreaseItemQuantity(item))}>
         <PiMinus className="h-4 w-4" />
       </button>
       <div className="font-semibold text-center content-center">
-        {quantityProduct}
+        {item.quantity}
       </div>
-      <button onClick={fnIncrease}>
+      <button onClick={() => dispatch(increaseItemQuantity(item))}>
         <PiPlus className="h-4 w-4" />
       </button>
     </div>

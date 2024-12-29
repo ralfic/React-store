@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ICartItem, IProduct } from '@/types';
 
-
 export interface State {
   items: ICartItem[];
   totalQuantity: number;
   totalPrice: number;
   totalDiscount: number;
   price: number;
+  shippingType: string;
 }
 
 const initialState: State = {
@@ -16,6 +16,7 @@ const initialState: State = {
   totalPrice: 0,
   totalDiscount: 0,
   price: 0,
+  shippingType: 'free',
 };
 
 function calculateCart(state: State) {
@@ -88,6 +89,10 @@ export const cartSlice = createSlice({
       state.totalPrice = 0;
       state.totalDiscount = 0;
       state.price = 0;
+      state.shippingType = 'free';
+    },
+    setShippingType: (state, action: PayloadAction<string>) => {
+      state.shippingType = action.payload;
     },
   },
 });
@@ -98,5 +103,6 @@ export const {
   increaseItemQuantity,
   decreaseItemQuantity,
   removeItem,
+  setShippingType,
 } = cartSlice.actions;
 export default cartSlice.reducer;

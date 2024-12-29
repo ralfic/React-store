@@ -1,13 +1,11 @@
-import { Input } from '@chakra-ui/react';
-import { Field } from '@/components/ui/field';
 import { Button } from '../../uikit/Button';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useAppSelector } from '@/store';
 import { useAddAccountDetailsMutation } from '@/api/user/userApi';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
-import ErrorMessageForm from '../../uikit/ErrorMessageForm';
+import FormInput from '@/components/uikit/FormInput';
 
 interface IFormValues {
   firstName: string;
@@ -38,15 +36,12 @@ export default function ChangeDetailsForm() {
   const { token } = useAppSelector((state) => state.auth);
   const [addAccountDetails] = useAddAccountDetailsMutation();
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm<IFormValues>({
+  const methods = useForm<IFormValues>({
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
+
+  const { reset, handleSubmit } = methods;
   const navigation = useNavigate();
 
   const onSubmit: SubmitHandler<IFormValues> = async (data) => {
@@ -62,68 +57,48 @@ export default function ChangeDetailsForm() {
       }
     } catch (error) {
       if (error instanceof Error) {
-        throw new Error(error.message);
+        throw error;
       } else {
-        throw new Error(String(error));
+        throw new Error(`Unexpected error: ${String(error)}`);
       }
     }
   };
 
   return (
-    <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="text-xl font-semibold">Account Details</h2>
-      <Field className="text-gray-600" label="First name" required>
-        <Input
-          {...register('firstName')}
-          className="border pl-4 w-full"
+    <FormProvider {...methods}>
+      <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
+        <h2 className="text-xl font-semibold">Account Details</h2>
+        <FormInput
+          label="First name"
           placeholder="First name"
-          variant="outline"
-          colorPalette="black"
+          name="firstName"
+          required
           defaultValue={firstName}
         />
-        <ErrorMessageForm message={errors?.firstName?.message} />
-      </Field>
-
-      <Field className="text-gray-600" label="Last name" required>
-        <Input
-          {...register('lastName')}
-          className="border pl-4 w-full"
+        <FormInput
+          label="Last name"
           placeholder="Last name"
-          variant="outline"
-          colorPalette="black"
+          name="lastName"
+          required
           defaultValue={lastName}
         />
-        <ErrorMessageForm message={errors?.lastName?.message} />
-      </Field>
-      <Field
-        className="text-gray-600"
-        label="Display name"
-        required
-        helperText="This will be how your name will be displayed in the account section and in reviews"
-      >
-        <Input
-          {...register('name')}
-          className="border pl-4 w-full"
+        <FormInput
+          label="Display name"
           placeholder="Display name"
-          variant="outline"
-          colorPalette="black"
+          name="name"
+          helperText="This will be how your name will be displayed in the account section and in reviews"
+          required
           defaultValue={name}
         />
-        <ErrorMessageForm message={errors?.name?.message} />
-      </Field>
-      <Field className="text-gray-600" label="Email" required>
-        <Input
-          {...register('email')}
-          className="border pl-4 w-full"
+        <FormInput
+          label="Email"
           placeholder="Email"
-          variant="outline"
-          colorPalette="black"
+          name="email"
+          required
           defaultValue={email}
         />
-        <ErrorMessageForm message={errors?.email?.message} />
-      </Field>
-
-      <Button className="max-w-fit">Save changes</Button>
-    </form>
+        <Button className="max-w-fit">Save changes</Button>
+      </form>
+    </FormProvider>
   );
 }

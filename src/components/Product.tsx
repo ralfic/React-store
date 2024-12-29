@@ -20,8 +20,10 @@ export default function Product({ product }: IProps) {
   const dispatch = useAppDispatch();
   const itemsWishlist = useAppSelector((state) => state.wishlist.items);
   const items = useAppSelector((state) => state.cart.items);
+  
   const thereIsInCar = !!items.find((i) => i.id === product?.id);
   const thereIsInWishlist = !!itemsWishlist.find((i) => i.id === product?.id);
+
   const [openTitle, setOpenTitle] = useState(false);
   const [openDescription, setOpenDescription] = useState(false);
 
