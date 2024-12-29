@@ -20,25 +20,27 @@ export default function AccountWishlistItem({ item }: IProps) {
   const discount = calculateDiscount(item.discount, item.price);
 
   return (
-    <div className="flex justify-between items-center py-6 border-b">
-      <div className="flex gap-2 items-center ">
-        <RxCross2
-          className="w-6 h-6 cursor-pointer  text-gray-600"
-          onClick={() => dispatch(removeItemFromWishList(item))}
-        />
+    <div className="flex flex-col   py-4 px-4 rounded-md gap-2 border border-black w-full relative shadow-md">
+      <RxCross2
+        className="w-6 h-6 cursor-pointer  text-gray-600 absolute right-3 "
+        onClick={() => dispatch(removeItemFromWishList(item))}
+      />
+      <div className="flex gap-2  flex-col ">
         <img
           src={item.image}
-          className="w-24 h-24 object-contain cursor-pointer"
+          className="w-28 h-28 object-contain cursor-pointer mx-auto"
           onClick={() => navigate(`/product/${item.id}`)}
         />
         <div className="flex flex-col gap-1">
-          <h5 className="font-semibold whitespace-nowrap overflow-hidden text-ellipsis max-w-[120px]">
+          <h5 className="font-semibold whitespace-nowrap overflow-hidden text-ellipsis max-w-[160px]">
             {item.title}
           </h5>
-          <p className="text-sm text-gray-400">Model: {item.model}</p>
+          <p className="text-sm text-gray-400 whitespace-nowrap overflow-hidden text-ellipsis max-w-[160px]">
+            Model: {item.model}
+          </p>
         </div>
       </div>
-      <p className="flex gap-2">
+      <p className="flex gap-2 font-semibold">
         {item.discount && (
           <>
             <p>{item.price - discount}$</p>
@@ -47,7 +49,6 @@ export default function AccountWishlistItem({ item }: IProps) {
         )}
       </p>
       <Button
-        className="w-fit h-fit"
         onClick={() => {
           if (!thereIsInCar) {
             dispatch(addItem(item));

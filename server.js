@@ -7,9 +7,17 @@ const server = jsonServer.create();
 const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
 
+const rules = auth.rewriter({
+  // Permission rules
+  users: 600,
+  orders: 660,
+  // Other rules
+});
+
 server.use(cors());
 server.use(middlewares);
 server.db = router.db;
+server.use(rules);
 server.use(auth);
 
 // Custom endpoint for changing password

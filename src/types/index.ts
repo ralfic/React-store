@@ -35,6 +35,32 @@ export interface IUser {
   orders: string[];
 }
 
+export interface IOrder {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  email?: string;
+  country: string;
+  stressAddress: string;
+  town_city: string;
+  state?: string;
+  zipCode?: number;
+  cardNumber: string;
+  cvcCode: number;
+  ExpirationDate: string;
+  id: string;
+  dateCreated: string;
+  items: IOrderItem[];
+  totalPrice: number;
+}
+
+export interface IOrderItem {
+  id: number;
+  name: string;
+  quantity: number;
+  image: string;
+}
+
 export type TCategory =
   | 'tv'
   | 'audio'

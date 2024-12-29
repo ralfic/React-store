@@ -1,4 +1,4 @@
-import { IUser } from "@/types";
+import { IOrder, IUser } from '@/types';
 
 export interface GetUserRequest {
   token: string | null;
@@ -15,4 +15,19 @@ export interface ChangeUserPasswordRequest {
   email: string;
   oldPassword: string;
   newPassword: string;
+}
+
+export interface ChangeUserPasswordResponse {
+  message: string;
+}
+
+export interface CreateOrderRequest {
+  token: string;
+  order: IOrder;
+  userId: number;
+}
+
+export interface GetNewOrderRequest {
+  token: string | null;
+  id: string | null;
 }

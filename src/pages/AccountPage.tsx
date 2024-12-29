@@ -7,7 +7,6 @@ import { clearUser } from '@/store/slices/user/userSlice';
 
 const accountRoutes = [
   { path: '/account', title: 'Account' },
-  { path: '/account/address', title: 'Address' },
   { path: '/account/orders', title: 'Orders' },
   { path: '/account/wishlist', title: 'Wishlist' },
 ];
@@ -16,6 +15,7 @@ export default function AccountPage() {
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
+  
   return (
     <div className="pb-20 max-w-wrapper mx-auto">
       <h1 className="font-Poppins text-5xl font-medium text-center p-20">
