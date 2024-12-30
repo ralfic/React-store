@@ -2,7 +2,7 @@ import { HStack, Icon } from '@chakra-ui/react';
 import { RadioCardItem, RadioCardRoot } from '@/components/ui/radio-card';
 import { RiAppleFill, RiBankCardFill, RiPaypalFill } from 'react-icons/ri';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { useAppDispatch, useAppSelector } from '@/store';
+import { useAppDispatch } from '@/store';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button } from '../uikit/Button';
@@ -12,6 +12,7 @@ import { useCreateOrderMutation } from '@/api/user/userApi';
 import { IOrder } from '@/types';
 import { clearCart } from '@/store/slices/cart/cartSlice';
 import useCreateOrder from '@/hooks/useCreateOrder';
+import { toast } from 'react-toastify';
 
 const itemsPay = [
   { value: 'paypal', title: 'Paypal', icon: <RiPaypalFill /> },
@@ -67,7 +68,6 @@ interface IProps {
 
 export default function Checkout({ setActiveStep, setCurrentOrderId }: IProps) {
   const dispatch = useAppDispatch();
-  const { token, id: userId } = useAppSelector((state) => state.auth);
   const [createOrder] = useCreateOrderMutation();
   const { dateCreate, orderItems, idOrder, totalPriceOrder } = useCreateOrder();
 
@@ -80,22 +80,17 @@ export default function Checkout({ setActiveStep, setCurrentOrderId }: IProps) {
   const onSubmit: SubmitHandler<FormCheckout> = (data) => {
     setCurrentOrderId(idOrder);
 
-    if (userId && token) {
-      createOrder({
-        order: {
-          ...data,
-          id: idOrder,
-          dateCreated: dateCreate,
-          items: orderItems,
-          totalPrice: totalPriceOrder,
-        },
-        token: token,
-        userId: userId,
-      });
-      setActiveStep();
-      reset();
-      dispatch(clearCart());
-    }
+    createOrder({
+      ...data,
+      id: idOrder,
+      dateCreated: dateCreate,
+      items: orderItems,
+      totalPrice: totalPriceOrder,
+    });
+    toast.success("Order complete")
+    setActiveStep();
+    reset();
+    dispatch(clearCart());
   };
 
   return (
@@ -216,7 +211,7 @@ export default function Checkout({ setActiveStep, setCurrentOrderId }: IProps) {
                 />
               </div>
             </div>
-            <Button >Place Order</Button>
+            <Button>Place Order</Button>
           </form>
         </FormProvider>
       </div>

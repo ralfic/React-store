@@ -1,10 +1,8 @@
-import { useAppDispatch } from '@/store';
-import { removeItem } from '@/store/slices/cart/cartSlice';
 import { ICartItem } from '@/types';
 import { RxCross2 } from 'react-icons/rx';
 import ProductQuantity from '../uikit/ProductQuantity';
-import calculateDiscount from '@/helpers/calculateDiscount';
 import clsx from 'clsx';
+import useProduct from '@/hooks/useProduct';
 
 interface IProps {
   item: ICartItem;
@@ -17,8 +15,7 @@ export default function CartItem({
   variant = 'cart',
   allowDelete = true,
 }: IProps) {
-  const dispatch = useAppDispatch();
-  const discount = calculateDiscount(item.discount, item.price);
+  const { discount, removeFromCart } = useProduct(item);
 
   return (
     <div className="flex w-full font-Inter border-b py-6 gap-4">
@@ -63,7 +60,7 @@ export default function CartItem({
           {allowDelete && (
             <button
               className="flex items-center gap-2"
-              onClick={() => dispatch(removeItem(item))}
+              onClick={removeFromCart}
             >
               {variant === 'cart' && (
                 <p className="text-gray-500 font-semibold">Remove</p>

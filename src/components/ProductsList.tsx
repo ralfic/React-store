@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import ProductCard from './ProductCard';
+import { ProductCard } from './ProductCard';
 import { IProduct } from '@/types';
 import { HiOutlineArrowRight } from 'react-icons/hi';
 import ProductsListSkeleton from './uikit/ProductsListSkeleton';

@@ -8,6 +8,7 @@ interface IProps {
 
 export default function CartShopping({ setActiveStep }: IProps) {
   const { items } = useAppSelector((state) => state.cart);
+  
   return (
     <div className="py-20 w-full flex gap-16">
       <div className="w-full">

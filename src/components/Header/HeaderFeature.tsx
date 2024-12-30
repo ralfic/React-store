@@ -1,7 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/store';
 import { toggleCart } from '@/store/slices/flyoutCartSlice';
 import { Box, Float, Circle } from '@chakra-ui/react';
-import { CiSearch } from 'react-icons/ci';
 import { PiUserCircleLight, PiShoppingCartSimpleLight } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
 
@@ -11,10 +10,7 @@ export default function HeaderFeature() {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   return (
-    <div className="flex gap-2">
-      <button>
-        <CiSearch className="w-6 h-6" />
-      </button>
+    <div className="flex gap-2 ml-auto">
       <Link to={isAuthenticated ? '/account' : '/signin'}>
         <PiUserCircleLight className="w-6 h-6" />
       </Link>
