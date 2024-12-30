@@ -11,7 +11,7 @@ export default function PageNavigation({ them = 'dark' }: IProps) {
   const { pathname } = useLocation();
 
   return (
-    <nav>
+    <nav className='mx-auto'>
       <ul className="flex gap-10 font-medium select-none text-sm">
         <NavPageLink path="/" name="home" them={them} currentPath={pathname} />
         <NavPageLink

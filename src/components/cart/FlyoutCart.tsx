@@ -33,7 +33,7 @@ export function FlyoutCart() {
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle className="font-Poppins font-medium text-2xl ">
-            <h2> Cart</h2>
+            Cart
           </DrawerTitle>
         </DrawerHeader>
         <DrawerBody className="flex gap-6 flex-col scroll">

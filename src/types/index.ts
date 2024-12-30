@@ -11,6 +11,7 @@ export interface IProduct {
   discount?: number;
   onSale?: boolean;
   popular?: boolean;
+  quantity?: number;
 }
 
 export interface ICartItem extends IProduct {
@@ -32,7 +33,6 @@ export interface IUser {
   remember?: boolean;
   firstName: string;
   lastName: string;
-  orders: string[];
 }
 
 export interface IOrder {

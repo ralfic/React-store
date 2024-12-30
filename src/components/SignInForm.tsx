@@ -8,6 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
+import { toast } from 'react-toastify';
 
 import isSerializedError from '@/helpers/isSerializedError';
 import FormInput from './uikit/FormInput';
@@ -32,7 +33,7 @@ export default function SignInForm() {
   });
   const { reset, handleSubmit, setValue } = methods;
 
-  const [signIn, { error }] = useSignInMutation();
+  const [signIn, { data: response, error }] = useSignInMutation();
 
   const navigate = useNavigate();
 
@@ -40,13 +41,15 @@ export default function SignInForm() {
 
   const onSubmit: SubmitHandler<ISignInForm> = async (data) => {
     try {
-      const response = await signIn(data).unwrap();
+      await signIn(data).unwrap();
       if (response) {
         dispatch(setAuth(response));
         navigate('/');
         reset();
+        toast.success('Login successful');
       }
     } catch (error) {
+      toast.error('Login error');
       if (error instanceof Error) {
         throw new Error(error.message);
       } else {

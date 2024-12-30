@@ -1,7 +1,7 @@
 import { Button } from '../../uikit/Button';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '@/store';
-import { useChangeUserPasswordMutation } from '@/api/user/userApi';
+import { useChangePasswordMutation } from '@/api/user/userApi';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
@@ -30,8 +30,8 @@ const schema = yup.object().shape({
 export default function ChangePasswordForm() {
   const dispatch = useAppDispatch();
   const { email } = useAppSelector((state) => state.user);
-  const [changeUserPassword, { data: resp, error }] =
-    useChangeUserPasswordMutation();
+  const [changeUserPassword, { data: response, error }] =
+    useChangePasswordMutation();
 
   const methods = useForm<IFormValues>({
     resolver: yupResolver(schema),
@@ -43,13 +43,13 @@ export default function ChangePasswordForm() {
   const navigation = useNavigate();
 
   useEffect(() => {
-    if (resp) {
+    if (response) {
       navigation('/');
       reset();
       dispatch(clearAuth());
       dispatch(clearUser());
     }
-  }, [resp]);
+  }, [response]);
 
   const onSubmit: SubmitHandler<IFormValues> = async (data) => {
     const { newPassword, oldPassword } = data;
@@ -58,7 +58,7 @@ export default function ChangePasswordForm() {
         newPassword,
         oldPassword,
         email,
-      });
+      }).unwrap();
     } catch (error) {
       if (error instanceof Error) {
         throw error;

@@ -19,25 +19,32 @@ const initialState: State = {
   shippingType: 'free',
 };
 
-function calculateCart(state: State) {
-  state.totalQuantity = state.items.reduce(
-    (acc, item) => item.quantity + acc,
-    0
-  );
-  state.price = state.items.reduce(
+function calculateCartTotals(items: ICartItem[]) {
+  const totalQuantity = items.reduce((acc, item) => item.quantity + acc, 0);
+  const price = items.reduce(
     (acc, item) => item.price * item.quantity + acc,
     0
   );
-  state.totalDiscount = state.items.reduce((acc, item) => {
+  const totalDiscount = items.reduce((acc, item) => {
     if (item.discount) {
       return (
         Math.round((item.price * item.discount) / 100) * item.quantity + acc
       );
-    } else {
-      return acc;
     }
+    return acc;
   }, 0);
-  state.totalPrice = state.price - state.totalDiscount;
+  const totalPrice = price - totalDiscount;
+
+  return { totalQuantity, price, totalDiscount, totalPrice };
+}
+
+function calculateCart(state: State) {
+  const { totalQuantity, price, totalDiscount, totalPrice } =
+    calculateCartTotals(state.items);
+  state.totalQuantity = totalQuantity;
+  state.price = price;
+  state.totalDiscount = totalDiscount;
+  state.totalPrice = totalPrice;
 }
 
 export const cartSlice = createSlice({

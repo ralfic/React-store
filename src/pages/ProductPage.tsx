@@ -19,7 +19,7 @@ export default function ProductPage() {
       <div className="max-w-wrapper mx-auto w-full">
         <ProductPageBreadCrumb />
         {isLoading && <ProductSkeleton />}
-        {!isLoading && <Product product={data?.product} />}
+        {!isLoading && data && <Product product={data.product} />}
         <ProductsList
           products={products?.products}
           typeArrangement="row"

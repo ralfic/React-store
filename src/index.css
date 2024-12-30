@@ -34,3 +34,7 @@ body {
 ::-webkit-scrollbar-thumb {
   background: rgba(199, 199, 199, 0.4);
 }
+
+.relative:hover .hover-elements {
+  visibility: visible;
+}

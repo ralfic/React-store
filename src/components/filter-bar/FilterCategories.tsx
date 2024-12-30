@@ -1,20 +1,25 @@
 import { TCategory } from '@/types';
 import clsx from 'clsx';
 import FilterSkeleton from '../uikit/FilterSkeleton';
+import { setFilters } from '@/store/slices/products/productsSlice';
+import { useAppDispatch, useAppSelector } from '@/store';
 
 interface IProps {
-  selectCategory: TCategory | null;
-  setSelectCategory: (category: TCategory | null) => void;
   categories: TCategory[] | undefined;
   isLoading: boolean;
 }
 
-export default function FilterCategories({
-  selectCategory,
-  setSelectCategory,
-  categories,
-  isLoading,
-}: IProps) {
+export default function FilterCategories({ categories, isLoading }: IProps) {
+  const dispatch = useAppDispatch();
+  const selectCategory = useAppSelector(
+    (state) => state.products.filters.category
+  );
+
+  function setSelectCategory(category: TCategory | null) {
+    dispatch(setFilters({ key: 'category', value: category }));
+    dispatch(setFilters({ key: 'limit', value: 9 }));
+  }
+
   return (
     <div>
       <h4 className=" mb-4">CATEGORIES</h4>
