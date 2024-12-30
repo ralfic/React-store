@@ -30,11 +30,10 @@ const schema = yup.object().shape({
 });
 
 export default function ChangeDetailsForm() {
-  const { id, name, firstName, lastName, email } = useAppSelector(
+  const { name, firstName, lastName, email } = useAppSelector(
     (state) => state.user
   );
-  const { token } = useAppSelector((state) => state.auth);
-  const [addAccountDetails] = useAddAccountDetailsMutation();
+  const [addAccountDetails, {data: response}] = useAddAccountDetailsMutation();
 
   const methods = useForm<IFormValues>({
     resolver: yupResolver(schema),
@@ -46,11 +45,7 @@ export default function ChangeDetailsForm() {
 
   const onSubmit: SubmitHandler<IFormValues> = async (data) => {
     try {
-      const response = await addAccountDetails({
-        token,
-        id,
-        userData: data,
-      }).unwrap();
+     await addAccountDetails(data).unwrap();
       if (response) {
         navigation(0);
         reset();

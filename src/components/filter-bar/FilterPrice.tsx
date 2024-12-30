@@ -1,7 +1,8 @@
 import { Checkbox } from '@/components/ui/checkbox';
 import { useState } from 'react';
 import FilterSkeleton from '../uikit/FilterSkeleton';
-import { useAppSelector } from '@/store';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { setFilters } from '@/store/slices/products/productsSlice';
 
 const valuePrice = [
   { title: 'all', sortValue: null },
@@ -10,15 +11,19 @@ const valuePrice = [
 ];
 
 interface IProps {
-  setSelectSort: (value: string | null) => void;
   isLoading: boolean;
 }
 
-export default function FilterPrice({ isLoading, setSelectSort }: IProps) {
-  const [selectCheckBox, setSelectCheckBox] = useState('all');
+export default function FilterPrice({ isLoading }: IProps) {
+  const dispatch = useAppDispatch();
+  const [selectPriceSort, setSelectPriceSort] = useState('all');
   const currentCategory = useAppSelector(
     (state) => state.products.filters.category
   );
+
+  function setSelectSort(value: string | null) {
+    dispatch(setFilters({ key: 'sort', value: value }));
+  }
 
   return (
     <div>
@@ -31,9 +36,9 @@ export default function FilterPrice({ isLoading, setSelectSort }: IProps) {
                 <p className="first-letter:uppercase">{price.title}</p>
                 <Checkbox
                   defaultChecked
-                  checked={selectCheckBox === price.title}
+                  checked={selectPriceSort === price.title}
                   onCheckedChange={() => {
-                    setSelectCheckBox(price.title);
+                    setSelectPriceSort(price.title);
                     setSelectSort(price.sortValue);
                   }}
                   colorPalette="white"

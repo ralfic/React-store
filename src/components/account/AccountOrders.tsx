@@ -1,9 +1,8 @@
 import { useGetOrdersQuery } from '@/api/user/userApi';
-import { useAppSelector } from '@/store';
 
 export default function AccountOrders() {
-  const { token } = useAppSelector((state) => state.auth);
-  const { data } = useGetOrdersQuery(token);
+  const { data } = useGetOrdersQuery(null);
+  
   return (
     <div className="px-[72px] w-full">
       <h2 className="text-xl font-semibold mb-10">Orders History</h2>
