@@ -4,7 +4,7 @@ import HeaderFeature from './HeaderFeature';
 
 export default function Header() {
   return (
-    <header className="grid grid-cols-3 py-[18px] max-w-wrapper w-full mx-auto">
+    <header className="flex justify-between py-[18px] max-w-wrapper w-full mx-auto">
       <Logo />
       <PageNavigation />
       <HeaderFeature />
