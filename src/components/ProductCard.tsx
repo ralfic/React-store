@@ -1,55 +1,32 @@
-import { useState } from 'react';
+import { memo } from 'react';
 import { Rating } from '@/components/ui/rating';
 import { IProduct } from '../types';
 import { Button } from './uikit/Button';
-import clsx from 'clsx';
 import { PiHeartFill, PiHeartLight } from 'react-icons/pi';
-import { useNavigate } from 'react-router-dom';
-import calculateDiscount from '@/helpers/calculateDiscount';
-import { useAppDispatch, useAppSelector } from '@/store';
-import { addItem } from '@/store/slices/cart/cartSlice';
-import { toggleCart } from '@/store/slices/flyoutCartSlice';
-import {
-  addItemToWishList,
-  removeItemFromWishList,
-} from '@/store/slices/wishlist/wishlistSlice';
 import { getRndInteger } from '@/helpers/getRndInteger';
+import useProduct from '@/hooks/useProduct';
 
 interface IProps {
   product: IProduct;
 }
 
-export default function ProductCard({ product }: IProps) {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const [mouseOnCard, setMouseOnCard] = useState(false);
-  const itemsWishlist = useAppSelector((state) => state.wishlist.items);
-  const itemsCart = useAppSelector((state) => state.cart.items);
-  const discount = calculateDiscount(product.discount, product.price);
-
-  const thereIsInCar = !!itemsCart.find((i) => i.id === product.id);
-  const thereIsInWishlist = !!itemsWishlist.find((i) => i.id === product.id);
+export const ProductCard = memo(function ProductCard({ product }: IProps) {
+  const {
+    discount,
+    addToWishList,
+    addToCart,
+    thereIsInCar,
+    thereIsInWishlist,
+    navigateToProduct,
+  } = useProduct(product);
 
   return (
     <div className="flex flex-col gap-3 max-h-[450px] items-center w-full font-Inter">
       <div className="bg-white shadow-lg rounded-lg w-full ">
-        <div
-          className="relative cursor-pointer"
-          onMouseEnter={() => setMouseOnCard(true)}
-          onMouseLeave={() => setMouseOnCard(false)}
-        >
+        <div className="relative cursor-pointer">
           <span
-            className={clsx(
-              ' bg-gray-200/80 rounded-full p-[6px] absolute top-4 right-4',
-              !mouseOnCard ? 'invisible' : ''
-            )}
-            onClick={() => {
-              if (thereIsInWishlist) {
-                dispatch(removeItemFromWishList(product));
-              } else {
-                dispatch(addItemToWishList(product));
-              }
-            }}
+            className=" bg-gray-200/80 rounded-full p-[6px] absolute top-4 right-4 invisible hover-elements"
+            onClick={addToWishList}
           >
             {thereIsInWishlist ? (
               <PiHeartFill className="fill-red-500" />
@@ -66,19 +43,11 @@ export default function ProductCard({ product }: IProps) {
           <img
             className=" max-w-[265px] h-[300px]  object-contain w-full mx-auto"
             src={product.image}
-            onClick={() => navigate(`/product/${product.id}`)}
+            onClick={navigateToProduct}
           />
 
-          <div className={clsx('pb-3 px-3', !mouseOnCard ? 'invisible' : '')}>
-            <Button
-              onClick={() => {
-                if (!thereIsInCar) {
-                  dispatch(addItem(product));
-                } else {
-                  dispatch(toggleCart(true));
-                }
-              }}
-            >
+          <div className="pb-3 px-3 invisible hover-elements">
+            <Button onClick={addToCart}>
               {thereIsInCar ? 'Go to cart' : 'Add to cart'}
             </Button>
           </div>
@@ -101,4 +70,4 @@ export default function ProductCard({ product }: IProps) {
       </div>
     </div>
   );
-}
+});

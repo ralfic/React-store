@@ -1,12 +1,13 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import Footer from './components/footer/Footer';
-import Header from './components/header/Header';
 import { useEffect } from 'react';
 import { FlyoutCart } from './components/cart/FlyoutCart';
 import { useLazyGetUserQuery } from './api/user/userApi';
 import { useAppDispatch, useAppSelector } from './store';
 import { setUser } from './store/slices/user/userSlice';
 import { clearAuth } from './store/slices/auth/authSlice';
+import Header from './components/header/Header';
+import Footer from './components/footer/Footer';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -14,11 +15,9 @@ export default function App() {
   const { id, token } = useAppSelector((state) => state.auth);
   const [trigger, { data, error }] = useLazyGetUserQuery();
 
-  // const autht = JSON.parse(localStorage.getItem("persist:auth"))
-
   useEffect(() => {
     if (id && token) {
-      trigger({ id, token });
+      trigger(null);
     }
   }, [id, token]);
 

@@ -1,5 +1,4 @@
 import { Button } from '../uikit/Button';
-import { useAppSelector } from '@/store';
 import { Link } from 'react-router-dom';
 import { useLazyGetNewOrderQuery } from '@/api/user/userApi';
 import { useEffect } from 'react';
@@ -10,17 +9,13 @@ interface IProps {
 }
 
 export default function OrderComplete({ currentOrderId }: IProps) {
-  const { token } = useAppSelector((state) => state.auth);
   const [trigger, { data }] = useLazyGetNewOrderQuery();
 
   useEffect(() => {
     if (currentOrderId) {
-      trigger({
-        token: token,
-        id: currentOrderId,
-      });
+      trigger(currentOrderId);
     }
-  }, [currentOrderId]);
+  }, [currentOrderId, trigger]);
 
   return (
     <div className="w-full max-w-[750px] shadow-xl py-20 px-24 mx-auto mt-20 flex flex-col gap-10 items-center justify-center">

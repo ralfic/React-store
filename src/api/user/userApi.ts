@@ -1,20 +1,19 @@
 import { IOrder, IUser } from '@/types';
 import { api } from '../api';
-import {
-  GetUserRequest,
-  AddAccountDetailsRequest,
-  ChangeUserPasswordRequest,
-  CreateOrderRequest,
-  GetNewOrderRequest,
-  ChangeUserPasswordResponse,
-} from './types';
 import { BD_JSON_API_URL } from '@/constants/constants';
+import getAuthData from '@/helpers/getAuthData';
+import { ChangePasswordResponse, ChangePasswordRequest } from './types';
 
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getUser: builder.query<IUser, Partial<GetUserRequest>>({
+    getUser: builder.query<IUser, null>({
       keepUnusedDataFor: 0,
-      query: ({ token, id }) => {
+      query: () => {
+        const { token, id } = getAuthData();
+        if (!token || !id) {
+          throw new Error('Token or ID is missing');
+        }
+
         return {
           url: BD_JSON_API_URL + `/users/${id}`,
           method: 'GET',
@@ -26,11 +25,12 @@ export const userApi = api.injectEndpoints({
         };
       },
     }),
-    addAccountDetails: builder.mutation<
-      IUser,
-      Partial<AddAccountDetailsRequest>
-    >({
-      query: ({ token, id, userData }) => {
+    addAccountDetails: builder.mutation<IUser, Partial<IUser>>({
+      query: (userData) => {
+        const { token, id } = getAuthData();
+        if (!token || !id) {
+          throw new Error('Token or ID is missing');
+        }
         return {
           url: BD_JSON_API_URL + `/users/${id}`,
           method: 'PATCH',
@@ -43,9 +43,9 @@ export const userApi = api.injectEndpoints({
         };
       },
     }),
-    changeUserPassword: builder.mutation<
-      ChangeUserPasswordResponse,
-      ChangeUserPasswordRequest
+    changePassword: builder.mutation<
+      ChangePasswordResponse,
+      ChangePasswordRequest
     >({
       query: (data) => {
         return {
@@ -59,8 +59,12 @@ export const userApi = api.injectEndpoints({
         };
       },
     }),
-    createOrder: builder.mutation<void, CreateOrderRequest>({
-      query: ({ token, order, userId }) => {
+    createOrder: builder.mutation<void, IOrder>({
+      query: (order) => {
+        const { token, id } = getAuthData();
+        if (!token || !id) {
+          throw new Error('Token or ID is missing');
+        }
         return {
           url: BD_JSON_API_URL + `/orders`,
           method: 'POST',
@@ -69,13 +73,17 @@ export const userApi = api.injectEndpoints({
             Accept: 'application/json',
             Authorization: `Bearer ${token}`,
           }),
-          body: JSON.stringify({ ...order, userId: userId }),
+          body: JSON.stringify({ ...order, userId: id }),
         };
       },
     }),
-    getOrders: builder.query<IOrder[], string | null>({
+    getOrders: builder.query<IOrder[], null>({
       keepUnusedDataFor: 0,
-      query: (token) => {
+      query: () => {
+        const { token } = getAuthData();
+        if (!token) {
+          throw new Error('Token is missing');
+        }
         return {
           url: BD_JSON_API_URL + `/orders`,
           method: 'GET',
@@ -87,10 +95,14 @@ export const userApi = api.injectEndpoints({
         };
       },
     }),
-    getNewOrder: builder.query<IOrder, GetNewOrderRequest>({
-      query: ({ token, id }) => {
+    getNewOrder: builder.query<IOrder, string | null>({
+      query: (orderId) => {
+        const { token, id } = getAuthData();
+        if (!token || !id) {
+          throw new Error('Token or ID is missing');
+        }
         return {
-          url: BD_JSON_API_URL + `/orders/${id}`,
+          url: BD_JSON_API_URL + `/orders/${orderId}`,
           method: 'GET',
           headers: new Headers({
             'Content-Type': 'application/json',
@@ -109,6 +121,6 @@ export const {
   useLazyGetNewOrderQuery,
   useGetOrdersQuery,
   useAddAccountDetailsMutation,
-  useChangeUserPasswordMutation,
+  useChangePasswordMutation,
   useCreateOrderMutation,
 } = userApi;

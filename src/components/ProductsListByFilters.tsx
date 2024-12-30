@@ -1,56 +1,56 @@
-import { useEffect, useState } from 'react';
-import { IProduct, TCategory } from '../types';
-import ProductCard from './ProductCard';
+import { useState } from 'react';
+import { ProductCard } from './ProductCard';
 import { Button } from './uikit/Button';
 import ProductsListSkeleton from './uikit/ProductsListSkeleton';
-import { useAppSelector } from '@/store';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { setFilters } from '@/store/slices/products/productsSlice';
+import { Input } from '@chakra-ui/react';
+import { InputGroup } from '@/components/ui/input-group';
+import { CiSearch } from 'react-icons/ci';
 
 interface IProps {
-  products?: IProduct[];
-  currentCategory: TCategory | null;
-  increaseLimitProducts: () => void;
   isLoading: boolean;
-  limit: number;
 }
 
-export default function ProductsListByFilters({
-  products,
-  currentCategory,
-  increaseLimitProducts,
-  isLoading,
-  limit,
-}: IProps) {
-  const filters = useAppSelector((state) => state.products.filters);
-  const [isUpdate, setIsUpdate] = useState(true);
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsUpdate(false);
-    }, 1200);
-    return () => {
-      setIsUpdate(true)
-      clearTimeout(timeout);
-    };
-  }, [filters]);
+export default function ProductsListByFilters({ isLoading }: IProps) {
+  const dispatch = useAppDispatch();
+  const products = useAppSelector((state) => state.products.products);
+  const { category, limit } = useAppSelector((state) => state.products.filters);
+  const [searchValue, setSearchValue] = useState('');
+
+  function increaseLimit() {
+    dispatch(setFilters({ key: 'limit', value: limit + 9 }));
+  }
+
   return (
     <div className="w-full">
-      <div className="flex items-center">
-        <h3 className="text-xl font-semibold mb-12 first-letter:uppercase">
-          {currentCategory === null ? 'All' : currentCategory}
+      <div className="flex  justify-between h-20 items-center gap-4">
+        <h3 className="text-xl font-semibold mb-12 first-letter:uppercase ">
+          {category === null ? 'All' : category}
         </h3>
+        <InputGroup
+          className="justify-self-end max-w-[360px] mb-12"
+          flex="1"
+          height={20}
+          startElement={<CiSearch className="w-5 h-5" />}
+        >
+          <Input
+            className="border rounded-md"
+            placeholder="Search the product"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+        </InputGroup>
       </div>
       <div className="grid grid-cols-3 gap-6 mb-20 max-lg:grid-cols-2">
         {!isLoading && (
           <>
-            {isUpdate ? (
-              <ProductsListSkeleton limit={limit} />
-            ) : (
-              <>
-                {products &&
-                  products.map((product, index) => (
-                    <ProductCard key={index} product={product} />
-                  ))}
-              </>
-            )}
+            {products &&
+              products
+                .filter((product) => product.title.includes(searchValue))
+                .map((product, index) => (
+                  <ProductCard key={index} product={product} />
+                ))}
           </>
         )}
         {isLoading && (
@@ -62,7 +62,7 @@ export default function ProductsListByFilters({
       <Button
         type="outline"
         rounded={true}
-        onClick={increaseLimitProducts}
+        onClick={increaseLimit}
         className="max-w-max mx-auto"
       >
         Show more
