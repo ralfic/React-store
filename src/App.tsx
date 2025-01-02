@@ -37,10 +37,19 @@ export default function App() {
     });
   }, [pathname]);
 
+  useEffect(() => {
+    const theme = localStorage.getItem('theme');
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
   return (
     <div>
       <FlyoutCart />
-      <Header />
+      <div className="px-8">
+        <Header />
+      </div>
       <Outlet />
       <Footer />
     </div>

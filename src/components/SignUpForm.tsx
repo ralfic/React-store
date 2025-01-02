@@ -75,7 +75,7 @@ export default function SignUpForm() {
       <form
         noValidate
         onSubmit={handleSubmit(onSubmit)}
-        className="max-w-[460px] content-center pl-20"
+        className="max-w-[460px] max-lg:max-w-[420px] content-center pl-16 max-lg:pl-10 max-md:pl-0 max-md:mx-auto w-full"
       >
         <div className="mb-8">
           <h1 className="font-medium text-4xl font-Poppins mb-6">Sign up</h1>
@@ -104,11 +104,15 @@ export default function SignUpForm() {
                 variant={'subtle'}
                 onCheckedChange={(e) => setValue('agree', !!e.checked)}
               />
-              <p className="text-gray-400">
+              <p className="text-gray-400 max-md:text-sm">
                 I agree with
-                <span className="text-black font-semibold">Privacy Policy</span>
+                <span className="text-black font-semibold dark:text-white px-1">
+                  Privacy Policy
+                </span>
                 and
-                <span className="text-black font-semibold"> Terms of Use</span>
+                <span className="text-black font-semibold dark:text-white px-1">
+                  Terms of Use
+                </span>
               </p>
             </div>
             <ErrorMessageForm message={errors?.agree?.message} />

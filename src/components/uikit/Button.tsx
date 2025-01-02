@@ -27,9 +27,9 @@ export function Button({
       disabled={disabled}
       onClick={onClick}
       className={clsx(
-        'font-medium leading-8 outline-none transition-colors border flex gap-2 items-center justify-center w-full font-Inter',
+        'font-medium leading-8 outline-none transition-colors border flex gap-2 items-center justify-center w-full font-Inter text-nowrap',
         type === 'solid'
-          ? 'text-white border-black bg-black hover:bg-white hover:text-black'
+          ? 'text-white border-black bg-black hover:bg-white hover:text-black '
           : 'text-black border-black bg-white hover:text-white hover:bg-black',
         rounded ? 'rounded-3xl' : 'rounded-lg',
         size === 'base' ? 'py-1.5 px-10' : 'py-2.5 px-14',

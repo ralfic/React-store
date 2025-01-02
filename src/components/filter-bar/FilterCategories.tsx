@@ -30,7 +30,7 @@ export default function FilterCategories({ categories, isLoading }: IProps) {
               className={clsx(
                 'first-letter:uppercase relative  before:w-0 self-start cursor-pointer ',
                 selectCategory === null
-                  ? 'text-black transition-all before:w-full ease-in-out before:duration-400 before:bg-black before:h-[1.5px] before:bottom-0  before:absolute before:transition-[width]'
+                  ? 'text-black before:bg-black dark:text-white dark:before:bg-white transition-all before:w-full ease-in-out before:duration-400 before:h-[1.5px] before:bottom-0  before:absolute before:transition-[width]'
                   : 'text-gray-400'
               )}
               onClick={() => setSelectCategory(null)}

@@ -30,15 +30,15 @@ const bannerInformation = [
 
 export default function BannerInformation() {
   return (
-    <article className="grid grid-cols-4 gap-6 max-w-wrapper w-full mx-auto py-10 select-none max-md:grid-cols-2 max-xs:grid-cols-1">
+    <article className="grid grid-cols-4 gap-6 max-w-wrapper w-full mx-auto py-10 select-none max-lg:grid-cols-2 max-m:grid-cols-1">
       {bannerInformation.map((elem, i) => (
         <div
           key={i}
-          className="flex flex-col px-8 py-12 bg-gray-200/55 font-Poppins hover:scale-105 transition-all ease-in-out "
+          className="flex flex-col px-8 py-12 bg-gray-200/55 font-Poppins hover:scale-105 transition-all ease-in-out items-center "
         >
           <span className="mb-4">{elem.icon}</span>
           <h3 className="mb-2 font-medium text-5">{elem.title}</h3>
-          <p className="text-sm text-gray-500">{elem.description}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-300">{elem.description}</p>
         </div>
       ))}
     </article>

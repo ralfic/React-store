@@ -4,14 +4,14 @@ import './index.css';
 import { MyAppRouter } from './routes';
 import { Provider } from 'react-redux';
 import { persistor, store } from './store';
-import { Provider as ProviderC } from '@/components/ui/provider';
+import { Provider as ProviderChakra } from '@/components/ui/provider';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ProviderC>
+    <ProviderChakra>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <MyAppRouter />
@@ -28,6 +28,6 @@ createRoot(document.getElementById('root')!).render(
           />
         </PersistGate>
       </Provider>
-    </ProviderC>
+    </ProviderChakra>
   </StrictMode>
 );

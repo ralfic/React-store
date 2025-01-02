@@ -22,8 +22,8 @@ export default function Product({ product }: IProps) {
   const [openDescription, setOpenDescription] = useState(false);
 
   return (
-    <section className="flex gap-14 justify-between relative pb-10">
-      <div className="max-w-[548px] relative">
+    <section className="flex gap-14 justify-between relative pb-10 max-[880px]:flex-col">
+      <div className="max-w-[528px] relative max-lg:max-w-[408px] max-[880px]:max-w-full bg-white">
         {product.discount && (
           <span className="bg-green-400 text-white py-0.5 absolute top-4 left-4  rounded-[4px] px-2.5 uppercase font-bold text-sm">
             {`-${product.discount}%`}
@@ -32,10 +32,10 @@ export default function Product({ product }: IProps) {
         <img className="mt-10" src={product.image} />
       </div>
       <div>
-        <div className="flex flex-col gap-4 max-w-[505px] pb-6 border-b">
+        <div className="flex flex-col gap-4 max-w-[535px] pb-6 border-b max-[880px]:max-w-full">
           <h1
             className={clsx(
-              'font-Poppins font-medium text-3xl line-clamp-2 cursor-pointer',
+              'font-Poppins font-medium text-3xl line-clamp-2 cursor-pointer ',
               openTitle && 'line-clamp-none'
             )}
             onClick={() => setOpenTitle((prev) => !prev)}
@@ -86,7 +86,7 @@ export default function Product({ product }: IProps) {
           </div>
         </div>
         <div className="py-6 flex flex-col gap-4">
-          <div className="flex gap-4">
+          <div className="flex gap-4 max-lg:flex-col  max-[860px]:flex-row max-m:flex-col">
             <Button
               icon={
                 thereIsInWishlist ? (

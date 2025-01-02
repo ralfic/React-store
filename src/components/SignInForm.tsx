@@ -61,7 +61,7 @@ export default function SignInForm() {
   return (
     <FormProvider {...methods}>
       <form
-        className="max-w-[460px] content-center pl-20"
+        className="max-w-[460px] max-lg:max-w-[420px] content-center  pl-16 max-lg:pl-10 max-md:pl-0 max-md:mx-auto w-full"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="mb-8">
@@ -93,7 +93,7 @@ export default function SignInForm() {
                 variant={'subtle'}
                 onCheckedChange={(e) => setValue('remember', !!e.checked)}
               />
-              <div className="flex justify-between w-full">
+              <div className="flex justify-between w-full gap-2 max-md:text-sm">
                 <p className="text-gray-400">Remember me</p>
                 <p className="font-semibold cursor-pointer">Forgot password?</p>
               </div>
