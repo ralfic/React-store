@@ -14,20 +14,22 @@ export default function HomePage() {
   return (
     <main>
       <BannerShopping />
-      <ProductsList
-        typeArrangement="row"
-        title="New Arrivals"
-        isLoading={isLoading}
-        products={dataProducts?.products}
-      />
-      <ShopCollection />
-      <ProductsList
-        typeArrangement="col"
-        title="Best Seller"
-        products={dataRandomProducts?.products}
-        isLoading={isLoading}
-      />
-      <BannerInformation />
+      <div className="px-8">
+        <ProductsList
+          typeArrangement="row"
+          title="New Arrivals"
+          isLoading={isLoading}
+          products={dataProducts?.products}
+        />
+        <ShopCollection />
+        <ProductsList
+          typeArrangement="col"
+          title="Best Seller"
+          products={dataRandomProducts?.products}
+          isLoading={isLoading}
+        />
+        <BannerInformation />
+      </div>
       <BannerJoinNewsletter />
     </main>
   );

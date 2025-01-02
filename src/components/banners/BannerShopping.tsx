@@ -4,8 +4,8 @@ import { Button } from '../uikit/Button';
 export default function BannerShopping() {
   return (
     <article className="w-full max-w-wrapper mx-auto max-h-[636px]  bg-banner-fon h-full text-white flex items-center justify-center font-Poppins select-none">
-      <div className="max-w-[760px]  text-center py-36 flex items-center justify-center flex-col">
-        <h2 className="text-6xl  font-medium mb-2">
+      <div className="max-w-[760px]  text-center py-36 flex items-center justify-center flex-col max-lg:py-32 max-md:py-28">
+        <h2 className="text-6xl  font-medium mb-2 max-md:text-5xl max-xs:text-4xl ">
           Listen to the amazing music sound.
         </h2>
         <p className="text-xl mb-7">Experience music like never before</p>

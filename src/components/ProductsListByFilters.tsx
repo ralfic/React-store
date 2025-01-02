@@ -29,7 +29,7 @@ export default function ProductsListByFilters({ isLoading }: IProps) {
           {category === null ? 'All' : category}
         </h3>
         <InputGroup
-          className="justify-self-end max-w-[360px] mb-12"
+          className="justify-self-end max-w-[280px] mb-12"
           flex="1"
           height={20}
           startElement={<CiSearch className="w-5 h-5" />}
@@ -42,7 +42,7 @@ export default function ProductsListByFilters({ isLoading }: IProps) {
           />
         </InputGroup>
       </div>
-      <div className="grid grid-cols-3 gap-6 mb-20 max-lg:grid-cols-2">
+      <div className="grid grid-cols-3 gap-6 mb-20 max-lg:grid-cols-2 max-md:grid-cols-2 max-sm:grid-cols-2 max-m:grid-cols-1">
         {!isLoading && (
           <>
             {products &&

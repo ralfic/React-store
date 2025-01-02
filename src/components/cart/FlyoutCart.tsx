@@ -69,12 +69,12 @@ export function FlyoutCart() {
                 className=" bg-gray-200 rounded-lg px-3"
                 onClick={() => dispatch(clearCart())}
               >
-                <BsTrash3Fill className="w-5 h-5 mx-auto" />
+                <BsTrash3Fill className="w-5 h-5 mx-auto dark:fill-black" />
               </button>
             </div>
             <Link
               onClick={() => dispatch(toggleCart(false))}
-              className="font-semibold border-b border-black text-center self-center"
+              className="font-semibold border-b border-black dark:border-white text-center self-center"
               to={isAuthenticated ? '/cart' : '/signin'}
             >
               View Cart

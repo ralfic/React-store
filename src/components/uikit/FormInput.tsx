@@ -39,7 +39,7 @@ export default function FormInput({
       <Input
         type={type}
         {...register(name)}
-        className={clsx(
+        className={clsx("dark:text-white",
           variant === 'outline' ? 'border pl-4 w-full' : 'border-b w-full'
         )}
         placeholder={placeholder}

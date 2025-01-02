@@ -12,10 +12,8 @@ export default function OrderItem({ item }: IProps) {
         <img className="shadow-md" src={item.image} alt="" />
         <Float>
           <Circle
-            className="font-semibold font-Inter"
+            className="font-semibold font-Inter bg-black dark:bg-white text-white dark:text-black  dark:border dark:border-black"
             size="7"
-            bg="black"
-            color="white"
           >
             {item.quantity}
           </Circle>

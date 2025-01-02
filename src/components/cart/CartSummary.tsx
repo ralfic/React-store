@@ -24,12 +24,12 @@ export default function CartSummary({ setActiveStep }: IProps) {
   }, [dispatch, value]);
 
   return (
-    <div className="border border-black rounded-md p-6 max-w-[420px] w-full h-fit">
+    <div className="border border-black rounded-md p-6 max-w-[420px] w-full h-fit max-lg:max-w-full  dark:border-white">
       <h3 className="text-xl font-medium font-Poppins mb-4">Cart summary</h3>
       <ul className="flex flex-col gap-3 mb-4">
         {shippingTypes.map((element, i) => (
           <li
-            className="px-4 py-3 border border-black rounded-lg flex items-center justify-between"
+            className="px-4 py-3 border border-black dark:border-white rounded-lg flex items-center justify-between bg-black"
             key={i}
           >
             <RadioGroup
@@ -40,7 +40,7 @@ export default function CartSummary({ setActiveStep }: IProps) {
               onValueChange={(e) => setValue(e.value)}
             >
               <Radio
-                className="mr-2 relative top-1 border border-black rounded-full"
+                className="mr-2 relative top-1 border border-black  dark:border-white rounded-full dark:bg-gray-800"
                 value={element.value}
               ></Radio>
               {element.title}

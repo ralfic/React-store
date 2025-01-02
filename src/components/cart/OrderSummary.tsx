@@ -6,7 +6,7 @@ export default function OrderSummary() {
     useAppSelector((state) => state.cart);
 
   return (
-    <div className="border border-black rounded-md py-4 px-6 flex flex-col max-w-[420px] h-fit  w-full gap-4">
+    <div className="border border-black rounded-md py-4 px-6 flex flex-col max-w-[420px] h-fit  w-full gap-4 max-lg:max-w-full dark:border-white">
       <h2 className="font-Poppins text-2xl font-medium ">Order summary</h2>
       <div className="max-h-[440px] scroll pr-2 overflow-y-scroll">
         {items.map((item, i) => (

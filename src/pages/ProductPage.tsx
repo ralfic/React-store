@@ -16,7 +16,7 @@ export default function ProductPage() {
 
   return (
     <main>
-      <div className="max-w-wrapper mx-auto w-full">
+      <div className="max-w-wrapper mx-auto w-full px-8">
         <ProductPageBreadCrumb />
         {isLoading && <ProductSkeleton />}
         {!isLoading && data && <Product product={data.product} />}

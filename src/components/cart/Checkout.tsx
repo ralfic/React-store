@@ -94,14 +94,14 @@ export default function Checkout({ setActiveStep, setCurrentOrderId }: IProps) {
   };
 
   return (
-    <div className="max-w-wrapper w-full py-20 flex gap-16">
-      <div className="flex flex-col gap-6 max-w-[643px] w-full">
+    <div className="max-w-wrapper w-full py-20 flex gap-16 max-lg:flex-col">
+      <div className="flex flex-col gap-6 max-w-[643px] w-full max-lg:max-w-full">
         <FormProvider {...methods}>
           <form
             className="flex flex-col gap-6"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className="border border-black rounded-md py-10 px-6 flex flex-col gap-6">
+            <div className="border border-black rounded-md py-10 px-6 flex flex-col gap-6 dark:border-white">
               <h2 className="font-Poppins text-xl font-medium">
                 Contact Infomation
               </h2>
@@ -131,7 +131,7 @@ export default function Checkout({ setActiveStep, setCurrentOrderId }: IProps) {
                 name="email"
               />
             </div>
-            <div className="border border-black rounded-md py-10 px-6 flex flex-col gap-6">
+            <div className="border border-black rounded-md py-10 px-6 flex flex-col gap-6 dark:border-white">
               <h2 className="font-Poppins text-xl font-medium">
                 Shipping Address
               </h2>
@@ -162,7 +162,7 @@ export default function Checkout({ setActiveStep, setCurrentOrderId }: IProps) {
                 />
               </div>
             </div>
-            <div className="border border-black rounded-md py-10 px-6 flex flex-col gap-6">
+            <div className="border border-black rounded-md py-10 px-6 flex flex-col gap-6 dark:border-white">
               <h2 className="font-Poppins text-xl font-medium">
                 Payment method
               </h2>
