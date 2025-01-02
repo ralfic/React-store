@@ -25,11 +25,7 @@ export function ShopCollectionCard({
     >
       {type === 'lg' && (
         <div className="h-full w-full mb-4">
-          <img
-            className="object-contain  h-full w-full "
-            src={img}
-            alt={title}
-          />
+          <img className="object-contain  h-full w-full " src={img} />
         </div>
       )}
       <div className="mt-auto">

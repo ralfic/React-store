@@ -14,7 +14,9 @@ export default function ShopePage() {
     <main>
       <div className="max-w-wrapper mx-auto w-full">
         <BannerShopePage />
-        <div className="flex gap-6 pt-14 pb-24">
+      </div>
+      <div className="px-8">
+        <div className="max-w-wrapper mx-auto w-full flex gap-6 pt-14 pb-24 max-md:flex-col">
           <FilterBar />
           <ProductsListByFilters isLoading={isLoading} />
         </div>
