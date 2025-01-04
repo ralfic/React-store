@@ -1,16 +1,19 @@
 import { memo } from 'react';
-import { Rating } from '@/components/ui/rating';
 import { IProduct } from '../types';
 import { Button } from './uikit/Button';
 import { PiHeartFill, PiHeartLight } from 'react-icons/pi';
-import { getRndInteger } from '@/helpers/getRndInteger';
 import useProduct from '@/hooks/useProduct';
+import clsx from 'clsx';
 
 interface IProps {
   product: IProduct;
+  order: 'row' | 'col';
 }
 
-export const ProductCard = memo(function ProductCard({ product }: IProps) {
+export const ProductCard = memo(function ProductCard({
+  product,
+  order,
+}: IProps) {
   const {
     discount,
     addToWishList,
@@ -21,11 +24,17 @@ export const ProductCard = memo(function ProductCard({ product }: IProps) {
   } = useProduct(product);
 
   return (
-    <div className="flex flex-col min-w-[261px] max-xs:min-w-[261px] max-sm:min-w-[200px] gap-3 max-h-[460px] max-lg:max-h-[420px] max-md:max-h-[420px] items-center w-full font-Inter">
+    <div
+      className={clsx(
+        'flex flex-col gap-3 max-h-[460px] max-lg:max-h-[420px] max-md:max-h-[420px] items-center w-full font-Inter',
+        order === 'row' &&
+          'min-w-[261px] max-xs:min-w-[261px] max-sm:min-w-[200px]'
+      )}
+    >
       <div className="bg-white shadow-lg rounded-lg w-full ">
         <div className="relative cursor-pointer">
           <span
-            className=" bg-gray-200/80 rounded-full p-[6px] absolute top-4 right-4 invisible hover-elements dark:bg-black"
+            className=" bg-gray-200/80 rounded-full p-[6px] absolute top-4 right-4 invisible hover-elements dark:bg-violet-600"
             onClick={addToWishList}
           >
             {thereIsInWishlist ? (
@@ -52,14 +61,18 @@ export const ProductCard = memo(function ProductCard({ product }: IProps) {
         </div>
       </div>
       <div className="flex flex-col self-start gap-1 mt-auto">
-        <Rating defaultValue={getRndInteger(2, 5)} size="sm" readOnly />
-        <h4 className="font-semibold text-wrap line-clamp-2">
+        <h4
+          className="font-semibold text-wrap line-clamp-2 cursor-pointer"
+          onClick={navigateToProduct}
+        >
           {product.title}
         </h4>
         <div className="font-semibold flex gap-2">
           {product.discount && (
             <>
-              <p>{product.price - discount}$</p>
+              <p className="dark:text-neutral-200">
+                {product.price - discount}$
+              </p>
               <p className="text-gray-400 line-through">{product.price}$</p>
             </>
           )}

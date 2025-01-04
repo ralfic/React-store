@@ -29,7 +29,7 @@ export default function Product({ product }: IProps) {
             {`-${product.discount}%`}
           </span>
         )}
-        <img className="mt-10" src={product.image} />
+        <img className="mt-10 " src={product.image} />
       </div>
       <div>
         <div className="flex flex-col gap-4 max-w-[535px] pb-6 border-b max-[880px]:max-w-full">

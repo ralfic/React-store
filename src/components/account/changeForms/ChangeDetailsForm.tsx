@@ -33,7 +33,7 @@ export default function ChangeDetailsForm() {
   const { name, firstName, lastName, email } = useAppSelector(
     (state) => state.user
   );
-  const [addAccountDetails, {data: response}] = useAddAccountDetailsMutation();
+  const [addAccountDetails] = useAddAccountDetailsMutation();
 
   const methods = useForm<IFormValues>({
     resolver: yupResolver(schema),
@@ -45,11 +45,12 @@ export default function ChangeDetailsForm() {
 
   const onSubmit: SubmitHandler<IFormValues> = async (data) => {
     try {
-     await addAccountDetails(data).unwrap();
-      if (response) {
-        navigation(0);
-        reset();
-      }
+      await addAccountDetails(data)
+        .unwrap()
+        .then(() => {
+          navigation(0);
+          reset();
+        });
     } catch (error) {
       if (error instanceof Error) {
         throw error;

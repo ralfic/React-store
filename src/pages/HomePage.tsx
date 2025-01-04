@@ -2,8 +2,8 @@ import BannerShopping from '../components/banners/BannerShopping';
 import BannerInformation from '../components/banners/BannerInformation';
 import { ProductsList } from '../components/ProductsList';
 import BannerJoinNewsletter from '../components/banners/BannerJoinNewsletter';
-import ShopCollection from '../components/ShopCollection';
 import { useGetProductsQuery } from '@/api/products/productsApi';
+import ShopCollection from '@/components/shopeCollection/ShopCollection';
 
 export default function HomePage() {
   const { data: dataProducts, isLoading } = useGetProductsQuery({});

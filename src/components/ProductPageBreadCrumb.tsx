@@ -15,7 +15,7 @@ export default function ProductPageBreadCrumb() {
         <BreadcrumbLink asChild colorPalette={'white'}>
           <Link to={'/shope'}>Shope</Link>
         </BreadcrumbLink>
-        <BreadcrumbCurrentLink>Product</BreadcrumbCurrentLink>
+        <BreadcrumbCurrentLink className='dark:text-violet-500'>Product</BreadcrumbCurrentLink>
       </BreadcrumbRoot>
     </div>
   );

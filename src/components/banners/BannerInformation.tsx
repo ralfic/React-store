@@ -34,11 +34,13 @@ export default function BannerInformation() {
       {bannerInformation.map((elem, i) => (
         <div
           key={i}
-          className="flex flex-col px-8 py-12 bg-gray-200/55 font-Poppins hover:scale-105 transition-all ease-in-out items-center "
+          className="flex flex-col px-8 py-12 bg-gray-200/55 font-Poppins hover:scale-105 transition-all ease-in-out items-center dark:bg-neutral-600 dark:hover:shadow-[0_0_15px_2px_rgba(0,0,0,0.3)] dark:hover:shadow-violet-600"
         >
           <span className="mb-4">{elem.icon}</span>
           <h3 className="mb-2 font-medium text-5">{elem.title}</h3>
-          <p className="text-sm text-gray-500 dark:text-gray-300">{elem.description}</p>
+          <p className="text-sm text-gray-500 dark:text-neutral-200">
+            {elem.description}
+          </p>
         </div>
       ))}
     </article>

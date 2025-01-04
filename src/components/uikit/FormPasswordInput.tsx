@@ -28,7 +28,7 @@ export default function FormPasswordInput({
   } = useFormContext();
 
   return (
-    <Field className="text-gray-600" label={label} required={required}>
+    <Field className="text-gray-600 dark:text-neutral-300" label={label} required={required}>
       <PasswordInput
         type={type}
         {...register(name)}

@@ -45,13 +45,13 @@ export default function App() {
   }, []);
 
   return (
-    <div>
+    <>
       <FlyoutCart />
       <div className="px-8">
         <Header />
       </div>
       <Outlet />
       <Footer />
-    </div>
+    </>
   );
 }

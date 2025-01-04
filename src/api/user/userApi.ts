@@ -84,6 +84,7 @@ export const userApi = api.injectEndpoints({
         if (!token) {
           throw new Error('Token is missing');
         }
+
         return {
           url: BD_JSON_API_URL + `/orders`,
           method: 'GET',
