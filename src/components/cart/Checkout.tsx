@@ -1,24 +1,17 @@
-import { HStack, Icon } from '@chakra-ui/react';
-import { RadioCardItem, RadioCardRoot } from '@/components/ui/radio-card';
-import { RiAppleFill, RiBankCardFill, RiPaypalFill } from 'react-icons/ri';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { useAppDispatch } from '@/store';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button } from '../uikit/Button';
 import OrderSummary from './OrderSummary';
-import FormInput from '../uikit/FormInput';
 import { useCreateOrderMutation } from '@/api/user/userApi';
 import { IOrder } from '@/types';
 import { clearCart } from '@/store/slices/cart/cartSlice';
 import useCreateOrder from '@/hooks/useCreateOrder';
 import { toast } from 'react-toastify';
-
-const itemsPay = [
-  { value: 'paypal', title: 'Paypal', icon: <RiPaypalFill /> },
-  { value: 'apple-pay', title: 'Apple Pay', icon: <RiAppleFill /> },
-  { value: 'card', title: 'Card', icon: <RiBankCardFill /> },
-];
+import ContactForm from './checkoutForms/ContactForm';
+import PaymentMethodForm from './checkoutForms/PaymentMethodForm';
+import ShippingAddressForm from './checkoutForms/ShippingAddressForm';
 
 export type FormCheckout = Omit<
   IOrder,
@@ -87,7 +80,7 @@ export default function Checkout({ setActiveStep, setCurrentOrderId }: IProps) {
       items: orderItems,
       totalPrice: totalPriceOrder,
     });
-    toast.success("Order complete")
+    toast.success('Order complete');
     setActiveStep();
     reset();
     dispatch(clearCart());
@@ -101,116 +94,9 @@ export default function Checkout({ setActiveStep, setCurrentOrderId }: IProps) {
             className="flex flex-col gap-6"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className="border border-black rounded-md py-10 px-6 flex flex-col gap-6 dark:border-white">
-              <h2 className="font-Poppins text-xl font-medium">
-                Contact Infomation
-              </h2>
-              <div className="flex gap-6">
-                <FormInput
-                  label="First name"
-                  placeholder="First name"
-                  name="firstName"
-                  required
-                />
-                <FormInput
-                  label="Last name"
-                  placeholder="Last name"
-                  name="lastName"
-                  required
-                />
-              </div>
-              <FormInput
-                label="Phone Number"
-                placeholder="Phone Number"
-                name="phoneNumber"
-                required
-              />
-              <FormInput
-                label="Email address"
-                placeholder="Your Email"
-                name="email"
-              />
-            </div>
-            <div className="border border-black rounded-md py-10 px-6 flex flex-col gap-6 dark:border-white">
-              <h2 className="font-Poppins text-xl font-medium">
-                Shipping Address
-              </h2>
-              <FormInput
-                label="Stress Address"
-                placeholder="Stress Address"
-                name="stressAddress"
-                required
-              />
-              <FormInput
-                label="Country"
-                placeholder="Country"
-                name="country"
-                required
-              />
-              <FormInput
-                label="Town / City"
-                placeholder="Town / City"
-                name="town_city"
-                required
-              />
-              <div className="flex gap-6">
-                <FormInput label="State" placeholder="State" name="state" />
-                <FormInput
-                  label="Zip Code"
-                  placeholder="Zip Code"
-                  name="zipCode"
-                />
-              </div>
-            </div>
-            <div className="border border-black rounded-md py-10 px-6 flex flex-col gap-6 dark:border-white">
-              <h2 className="font-Poppins text-xl font-medium">
-                Payment method
-              </h2>
-              <RadioCardRoot
-                orientation="horizontal"
-                align="center"
-                justify="center"
-                maxW="lg"
-                defaultValue="paypal"
-                colorPalette="gray"
-              >
-                <HStack align="stretch">
-                  {itemsPay.map((item) => (
-                    <RadioCardItem
-                      label={item.title}
-                      icon={
-                        <Icon fontSize="2xl" color="fg.subtle">
-                          {item.icon}
-                        </Icon>
-                      }
-                      indicator={false}
-                      key={item.value}
-                      value={item.value}
-                    />
-                  ))}
-                </HStack>
-              </RadioCardRoot>
-              <FormInput
-                label="Card Number"
-                placeholder="1234 1234 1234"
-                name="cardNumber"
-                required
-              />
-              <div className="flex gap-6">
-                <FormInput
-                  label="Expiration date"
-                  placeholder="MM/YY"
-                  name="ExpirationDate"
-                  required
-                />
-                <FormInput
-                  label="CVC"
-                  placeholder="CVC code"
-                  name="cvcCode"
-                  required
-                />
-              </div>
-            </div>
+            <ContactForm />
+            <ShippingAddressForm />
+            <PaymentMethodForm />
             <Button>Place Order</Button>
           </form>
         </FormProvider>

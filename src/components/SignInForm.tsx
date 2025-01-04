@@ -1,7 +1,7 @@
 import { useSignInMutation } from '@/api/auth/authApi';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/uikit/Button';
-import { useAppDispatch } from '@/store';
+import { useAppDispatch} from '@/store';
 import ErrorMessageForm from '@/components/uikit/ErrorMessageForm';
 import { setAuth } from '@/store/slices/auth/authSlice';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -31,9 +31,10 @@ export default function SignInForm() {
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
+
   const { reset, handleSubmit, setValue } = methods;
 
-  const [signIn, { data: response, error }] = useSignInMutation();
+  const [signIn, { error }] = useSignInMutation();
 
   const navigate = useNavigate();
 
@@ -41,13 +42,14 @@ export default function SignInForm() {
 
   const onSubmit: SubmitHandler<ISignInForm> = async (data) => {
     try {
-      await signIn(data).unwrap();
-      if (response) {
-        dispatch(setAuth(response));
-        navigate('/');
-        reset();
-        toast.success('Login successful');
-      }
+      await signIn(data)
+        .unwrap()
+        .then((res) => {
+          navigate('/');
+          reset();
+          toast.success('Login successful');
+          dispatch(setAuth(res));
+        });
     } catch (error) {
       toast.error('Login error');
       if (error instanceof Error) {

@@ -54,12 +54,13 @@ export default function SignUpForm() {
     const { name, email, password } = data;
     if (data.agree) {
       try {
-        const response = await signUp({ name, email, password }).unwrap();
-        if (response) {
-          dispatch(setAuth(response));
-          navigate('/');
-          reset();
-        }
+        await signUp({ name, email, password })
+          .unwrap()
+          .then((res) => {
+            dispatch(setAuth(res));
+            navigate('/');
+            reset();
+          });
       } catch (error) {
         if (error instanceof Error) {
           throw new Error(error.message);
