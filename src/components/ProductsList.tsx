@@ -22,13 +22,7 @@ export function ProductsList({
     <div className="max-w-wrapper mx-auto w-full py-12">
       <div className="flex justify-between items-center">
         <h2 className="font-semibold text-4xl mb-12 font-Poppins">{title}</h2>
-        <Link
-          to={'/shope'}
-          className="inline-flex items-center justify-center border-b cursor-pointer border-black  font-medium max-sm:hidden"
-        >
-          More Products
-          <HiOutlineArrowRight className="ml-1 w-4 h-4" />
-        </Link>
+        <LinkMoreProduct position="top" />
       </div>
       <div
         className={clsx(
@@ -41,7 +35,11 @@ export function ProductsList({
           <>
             {products &&
               products.map((product, index) => (
-                <ProductCard key={index} product={product} />
+                <ProductCard
+                  key={index}
+                  product={product}
+                  order={typeArrangement === 'row' ? 'row' : 'col'}
+                />
               ))}
           </>
         )}
@@ -51,13 +49,28 @@ export function ProductsList({
           </>
         )}
       </div>
-      <Link
-        to={'/shope'}
-        className="hidden mt-10 items-center justify-center border-b cursor-pointer border-black  font-medium max-sm:inline-flex"
-      >
-        More Products
-        <HiOutlineArrowRight className="ml-1 w-4 h-4" />
-      </Link>
+      <LinkMoreProduct position="bottom" />
     </div>
+  );
+}
+
+interface ILinkMoreProduct {
+  position: 'top' | 'bottom';
+}
+
+function LinkMoreProduct({ position = 'top' }: ILinkMoreProduct) {
+  return (
+    <Link
+      to={'/shope'}
+      className={clsx(
+        position === 'top'
+          ? 'inline-flex max-sm:hidden'
+          : 'hidden max-sm:inline-flex pt-10',
+        'items-center justify-center border-b cursor-pointer border-black  font-medium dark:text-violet-500 transition-colors dark:border-violet-500 dark:hover:text-white dark:hover:border-white'
+      )}
+    >
+      More Products
+      <HiOutlineArrowRight className="ml-1 w-4 h-4" />
+    </Link>
   );
 }

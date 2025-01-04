@@ -16,16 +16,18 @@ export default function ProductPage() {
 
   return (
     <main>
-      <div className="max-w-wrapper mx-auto w-full px-8">
-        <ProductPageBreadCrumb />
-        {isLoading && <ProductSkeleton />}
-        {!isLoading && data && <Product product={data.product} />}
-        <ProductsList
-          products={products?.products}
-          typeArrangement="row"
-          title="You might also like"
-          isLoading={isLoading}
-        />
+      <div className="px-8">
+        <div className="max-w-wrapper mx-auto w-full">
+          <ProductPageBreadCrumb />
+          {isLoading && <ProductSkeleton />}
+          {!isLoading && data && <Product product={data.product} />}
+          <ProductsList
+            products={products?.products}
+            typeArrangement="row"
+            title="You might also like"
+            isLoading={isLoading}
+          />
+        </div>
       </div>
       <BannerJoinNewsletter />
     </main>

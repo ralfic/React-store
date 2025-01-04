@@ -31,7 +31,7 @@ export default function FormInput({
 
   return (
     <Field
-      className="text-gray-600"
+      className="text-gray-600 dark:text-neutral-300"
       label={label}
       required={required}
       helperText={helperText}

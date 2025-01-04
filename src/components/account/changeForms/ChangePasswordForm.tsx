@@ -10,7 +10,6 @@ import { clearAuth } from '@/store/slices/auth/authSlice';
 import { clearUser } from '@/store/slices/user/userSlice';
 import isFetchBaseQueryError from '@/helpers/isFetchBaseQueryError';
 import FormInput from '@/components/uikit/FormInput';
-import { useEffect } from 'react';
 
 interface IFormValues {
   oldPassword: string;
@@ -30,8 +29,7 @@ const schema = yup.object().shape({
 export default function ChangePasswordForm() {
   const dispatch = useAppDispatch();
   const { email } = useAppSelector((state) => state.user);
-  const [changeUserPassword, { data: response, error }] =
-    useChangePasswordMutation();
+  const [changeUserPassword, { error }] = useChangePasswordMutation();
 
   const methods = useForm<IFormValues>({
     resolver: yupResolver(schema),
@@ -42,15 +40,6 @@ export default function ChangePasswordForm() {
 
   const navigation = useNavigate();
 
-  useEffect(() => {
-    if (response) {
-      navigation('/');
-      reset();
-      dispatch(clearAuth());
-      dispatch(clearUser());
-    }
-  }, [response]);
-
   const onSubmit: SubmitHandler<IFormValues> = async (data) => {
     const { newPassword, oldPassword } = data;
     try {
@@ -58,7 +47,14 @@ export default function ChangePasswordForm() {
         newPassword,
         oldPassword,
         email,
-      }).unwrap();
+      })
+        .unwrap()
+        .then(() => {
+          navigation('/');
+          reset();
+          dispatch(clearAuth());
+          dispatch(clearUser());
+        });
     } catch (error) {
       if (error instanceof Error) {
         throw error;

@@ -49,7 +49,7 @@ export default function ProductsListByFilters({ isLoading }: IProps) {
               products
                 .filter((product) => product.title.includes(searchValue))
                 .map((product, index) => (
-                  <ProductCard key={index} product={product} />
+                  <ProductCard key={index} product={product} order={'col'} />
                 ))}
           </>
         )}

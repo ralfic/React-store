@@ -1,8 +1,6 @@
-import { PiInstagramLogoLight, PiYoutubeLogoLight } from 'react-icons/pi';
 import Logo from '../uikit/Logo';
 import PageNavigation from '../PageNavigation';
-
-import { LiaFacebookF } from 'react-icons/lia';
+import SocialMediaList from '../uikit/socialMediaList';
 
 export default function Footer() {
   return (
@@ -21,9 +19,7 @@ export default function Footer() {
             <p>Terms of Use</p>
           </div>
           <div className="flex gap-6">
-            <PiInstagramLogoLight className="w-5 h-5 cursor-pointer" />
-            <LiaFacebookF className="w-5 h-5 cursor-pointer" />
-            <PiYoutubeLogoLight className="w-5 h-5 cursor-pointer" />
+            <SocialMediaList />
           </div>
         </div>
       </div>

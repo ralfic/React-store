@@ -18,7 +18,7 @@ export default function OrderComplete({ currentOrderId }: IProps) {
   }, [currentOrderId, trigger]);
 
   return (
-    <div className="w-full max-w-[750px] shadow-xl py-20 px-24 mx-auto mt-20 flex flex-col gap-10 items-center justify-center max-md:py-14 max-md:px-18 max-m:py-12 max-m:px-10 max-xs:py-8 max-xs:px-6 dark:border dark:border-white rounded-lg">
+    <div className="w-full max-w-[750px] shadow-xl py-20 px-24 mx-auto mt-20 flex flex-col gap-10 items-center justify-center max-md:py-14 max-md:px-18 max-m:py-12 max-m:px-10 max-xs:py-8 max-xs:px-6 dark:border dark:border-white rounded-lg dark:bg-neutral-800">
       <div className="font-Poppins font-medium text-center max-m:text-start">
         <span className="text-2xl text-gray-500 mb-4">Thank you! 🎉</span>
         <h2 className="text-3xl">Your order has been received</h2>

@@ -56,5 +56,4 @@ server.listen(8000, () => {
   console.log('JSON Server is running on port 8000');
 });
 
-
 export default server;
