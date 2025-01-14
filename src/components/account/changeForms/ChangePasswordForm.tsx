@@ -1,13 +1,12 @@
 import { Button } from '../../uikit/Button';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { useAppDispatch, useAppSelector } from '@/store';
-import { useChangePasswordMutation } from '@/api/user/userApi';
+import { useAppDispatch } from '@/store';
+import { useChangePasswordMutation, useGetUserQuery } from '@/api/user/userApi';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import ErrorMessageForm from '../../uikit/ErrorMessageForm';
-import { clearAuth } from '@/store/slices/auth/authSlice';
-import { clearUser } from '@/store/slices/user/userSlice';
+import { clearAuth } from '@/store/slices/auth/auth.slice';
 import isFetchBaseQueryError from '@/helpers/isFetchBaseQueryError';
 import FormInput from '@/components/uikit/FormInput';
 
@@ -28,8 +27,8 @@ const schema = yup.object().shape({
 
 export default function ChangePasswordForm() {
   const dispatch = useAppDispatch();
-  const { email } = useAppSelector((state) => state.user);
   const [changeUserPassword, { error }] = useChangePasswordMutation();
+  const { data: user } = useGetUserQuery();
 
   const methods = useForm<IFormValues>({
     resolver: yupResolver(schema),
@@ -46,14 +45,13 @@ export default function ChangePasswordForm() {
       await changeUserPassword({
         newPassword,
         oldPassword,
-        email,
+        email: user?.email ?? '',
       })
         .unwrap()
         .then(() => {
           navigation('/');
           reset();
           dispatch(clearAuth());
-          dispatch(clearUser());
         });
     } catch (error) {
       if (error instanceof Error) {

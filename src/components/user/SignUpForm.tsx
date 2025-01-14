@@ -5,11 +5,12 @@ import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useAppDispatch } from '@/store';
-import ErrorMessageForm from './uikit/ErrorMessageForm';
-import { setAuth } from '@/store/slices/auth/authSlice';
+import ErrorMessageForm from '../uikit/ErrorMessageForm';
+import { setAuth } from '@/store/slices/auth/auth.slice';
 import { useSignUpMutation } from '@/api/auth/authApi';
-import FormInput from './uikit/FormInput';
-import FormPasswordInput from './uikit/FormPasswordInput';
+import FormInput from '../uikit/FormInput';
+import FormPasswordInput from '../uikit/FormPasswordInput';
+import { toast } from 'react-toastify';
 
 interface ISignUpForm {
   email: string;
@@ -59,6 +60,7 @@ export default function SignUpForm() {
           .then((res) => {
             dispatch(setAuth(res));
             navigate('/');
+            toast.success('SignUp successful');
             reset();
           });
       } catch (error) {
@@ -87,7 +89,7 @@ export default function SignUpForm() {
             </Link>
           </p>
         </div>
-        <div className="flex flex-col gap-6 mb-8">
+        <div className="flex flex-col gap-6 mb-6">
           <FormInput name="name" placeholder="Name" variant="flushed" />
           <FormInput
             name="email"

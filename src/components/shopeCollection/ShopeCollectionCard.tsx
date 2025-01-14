@@ -1,4 +1,4 @@
-import { setFilters } from '@/store/slices/products/productsSlice';
+import { setFilters } from '@/store/slices/products/products.slice';
 import clsx from 'clsx';
 import { HiOutlineArrowRight } from 'react-icons/hi';
 import { useDispatch } from 'react-redux';

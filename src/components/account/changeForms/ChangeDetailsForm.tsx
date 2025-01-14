@@ -1,10 +1,11 @@
 import { Button } from '../../uikit/Button';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { useAppSelector } from '@/store';
-import { useAddAccountDetailsMutation } from '@/api/user/userApi';
+import {
+  useAddAccountDetailsMutation,
+  useGetUserQuery,
+} from '@/api/user/userApi';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useNavigate } from 'react-router-dom';
 import FormInput from '@/components/uikit/FormInput';
 
 interface IFormValues {
@@ -30,9 +31,7 @@ const schema = yup.object().shape({
 });
 
 export default function ChangeDetailsForm() {
-  const { name, firstName, lastName, email } = useAppSelector(
-    (state) => state.user
-  );
+  const { data: user } = useGetUserQuery();
   const [addAccountDetails] = useAddAccountDetailsMutation();
 
   const methods = useForm<IFormValues>({
@@ -41,20 +40,18 @@ export default function ChangeDetailsForm() {
   });
 
   const { reset, handleSubmit } = methods;
-  const navigation = useNavigate();
 
   const onSubmit: SubmitHandler<IFormValues> = async (data) => {
     try {
       await addAccountDetails(data)
         .unwrap()
         .then(() => {
-          navigation(0);
           reset();
         });
     } catch (error) {
       if (error instanceof Error) {
         throw error;
-      } else {
+      } else {  
         throw new Error(`Unexpected error: ${String(error)}`);
       }
     }
@@ -69,14 +66,14 @@ export default function ChangeDetailsForm() {
           placeholder="First name"
           name="firstName"
           required
-          defaultValue={firstName}
+          defaultValue={user?.firstName}
         />
         <FormInput
           label="Last name"
           placeholder="Last name"
           name="lastName"
           required
-          defaultValue={lastName}
+          defaultValue={user?.lastName}
         />
         <FormInput
           label="Display name"
@@ -84,14 +81,14 @@ export default function ChangeDetailsForm() {
           name="name"
           helperText="This will be how your name will be displayed in the account section and in reviews"
           required
-          defaultValue={name}
+          defaultValue={user?.name}
         />
         <FormInput
           label="Email"
           placeholder="Email"
           name="email"
           required
-          defaultValue={email}
+          defaultValue={user?.email}
         />
         <Button className="max-w-fit">Save changes</Button>
       </form>

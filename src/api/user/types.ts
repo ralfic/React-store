@@ -7,3 +7,10 @@ export interface ChangePasswordRequest {
 export interface ChangePasswordResponse {
   message: string;
 }
+
+export interface AddAccountDetailsRequest {
+  lastName: string,
+  flirtsName: string
+  email: string
+  name: string
+}

@@ -2,7 +2,7 @@ import { useAppDispatch } from '@/store';
 import {
   decreaseItemQuantity,
   increaseItemQuantity,
-} from '@/store/slices/cart/cartSlice';
+} from '@/store/slices/cart/cart.slice';
 import { ICartItem } from '@/types';
 import clsx from 'clsx';
 import { PiMinus, PiPlus } from 'react-icons/pi';
@@ -31,10 +31,7 @@ export default function ProductQuantity({ item, type = 'solid' }: IProps) {
           : ' bg-transparent border border-black gap-3 dark:border-white'
       )}
     >
-      <button
-        disabled={item.quantity === 1}
-        onClick={handleDecrease}
-      >
+      <button disabled={item.quantity === 1} onClick={handleDecrease}>
         <PiMinus className="h-4 w-4" />
       </button>
       <div className="font-semibold text-center content-center">

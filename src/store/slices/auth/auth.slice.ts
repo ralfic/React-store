@@ -21,11 +21,7 @@ const authSlice = createSlice({
       state.token = action.payload.accessToken;
       state.id = action.payload.user.id;
     },
-    clearAuth: (state) => {
-      state.isAuthenticated = false;
-      state.token = null;
-      state.id = null;
-    },
+    clearAuth: () => initialState,
   },
 });
 

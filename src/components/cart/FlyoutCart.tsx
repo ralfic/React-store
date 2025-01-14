@@ -12,10 +12,11 @@ import { useAppDispatch, useAppSelector } from '@/store';
 import CartItem from './CartItem';
 import { Button } from '../uikit/Button';
 import { Link } from 'react-router-dom';
-import { toggleCart } from '@/store/slices/flyoutCartSlice';
+import { toggleCart } from '@/store/slices/flyoutCart.slice';
 import { BsTrash3Fill } from 'react-icons/bs';
-import { clearCart } from '@/store/slices/cart/cartSlice';
-export function FlyoutCart() {
+import { clearCart } from '@/store/slices/cart/cart.slice';
+import { memo } from 'react';
+ function FlyoutCart() {
   const dispatch = useAppDispatch();
   const { isOpen } = useAppSelector((state) => state.flyoutCar);
   const { items, totalPrice, totalDiscount, price } = useAppSelector(
@@ -86,3 +87,5 @@ export function FlyoutCart() {
     </DrawerRoot>
   );
 }
+
+export default memo(FlyoutCart)

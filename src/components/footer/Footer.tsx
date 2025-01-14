@@ -1,10 +1,10 @@
-import Logo from '../uikit/Logo';
 import PageNavigation from '../PageNavigation';
-import SocialMediaList from '../uikit/socialMediaList';
+import Logo from '../uikit/Logo';
+import SocialMediaList from '../uikit/SocialMediaList';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#141718] pt-20 pb-8 text-white  px-8 max-md:pt-14">
+    <footer className="bg-[#141718] pt-20 pb-8 text-white  px-8 max-md:pt-14 dark:bg-black">
       <div className="max-w-[1120px] w-full mx-auto">
         <div className="flex justify-between items-center mb-12 max-xs:flex-col gap-8">
           <Logo />

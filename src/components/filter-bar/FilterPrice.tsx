@@ -2,7 +2,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { useState } from 'react';
 import FilterSkeleton from '../uikit/FilterSkeleton';
 import { useAppDispatch, useAppSelector } from '@/store';
-import { setFilters } from '@/store/slices/products/productsSlice';
+import { setFilters } from '@/store/slices/products/products.slice';
 
 const valuePrice = [
   { title: 'all', sortValue: null },

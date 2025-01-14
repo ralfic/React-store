@@ -1,5 +1,3 @@
-import getRandomCategory from '@/helpers/getRandomCategory';
-import { setProducts } from '../../store/slices/products/productsSlice';
 import {
   ProductsResponse,
   SingleProductResponse,
@@ -8,6 +6,8 @@ import {
 } from './types';
 import { api } from '../api';
 import { PRODUCT_API_URL } from '@/constants/constants';
+import { setProducts } from '@/store/slices/products/products.slice';
+import getRandomCategory from '@/helpers/getRandomCategory';
 
 export const productsApi = api.injectEndpoints({
   endpoints: (builder) => ({
@@ -74,6 +74,7 @@ export const productsApi = api.injectEndpoints({
       },
     }),
   }),
+  overrideExisting: false,
 });
 export const {
   useGetProductsByFiltersQuery,

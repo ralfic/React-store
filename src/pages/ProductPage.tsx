@@ -3,11 +3,11 @@ import {
   useGetSingleProductQuery,
 } from '@/api/products/productsApi';
 import BannerJoinNewsletter from '@/components/banners/BannerJoinNewsletter';
-import { ProductsList } from '@/components/ProductsList';
+import { ProductsList } from '@/components/product/ProductsList';
 import { useParams } from 'react-router-dom';
-import ProductPageBreadCrumb from '@/components/ProductPageBreadCrumb';
+import ProductPageBreadCrumb from '@/components/product/ProductPageBreadCrumb';
 import ProductSkeleton from '@/components/uikit/ProductSkeleton';
-import Product from '@/components/Product';
+import Product from '@/components/product/Product';
 
 export default function ProductPage() {
   const { id } = useParams();

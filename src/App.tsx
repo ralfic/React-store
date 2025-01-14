@@ -1,33 +1,32 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-import { FlyoutCart } from './components/cart/FlyoutCart';
-import { useLazyGetUserQuery } from './api/user/userApi';
-import { useAppDispatch, useAppSelector } from './store';
-import { setUser } from './store/slices/user/userSlice';
-import { clearAuth } from './store/slices/auth/authSlice';
+import FlyoutCart from './components/cart/FlyoutCart';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import 'react-toastify/dist/ReactToastify.css';
+import { useLazyGetUserQuery } from './api/user/userApi';
+import { useAppDispatch, useAppSelector } from './store';
+import { clearAuth } from './store/slices/auth/auth.slice';
 
 export default function App() {
-  const dispatch = useAppDispatch();
+  const { id } = useAppSelector((state) => state.auth);
   const { pathname } = useLocation();
-  const { id, token } = useAppSelector((state) => state.auth);
-  const [trigger, { data, error }] = useLazyGetUserQuery();
+  const [getUser] = useLazyGetUserQuery();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (id && token) {
-      trigger(null);
+    async function updateToken() {
+      try {
+        await getUser().unwrap();
+      } catch (error: any) {
+        console.error('Error updating token:', error);  
+        dispatch(clearAuth());
+      }
     }
-  }, [id, token]);
-
-  useEffect(() => {
-    if (data) {
-      dispatch(setUser(data));
-    } else if (error) {
-      dispatch(clearAuth());
+    if (id) {
+      updateToken();
     }
-  }, [data, error]);
+  }, [id, getUser, dispatch]);
 
   useEffect(() => {
     window.scrollTo({
@@ -36,13 +35,6 @@ export default function App() {
       behavior: 'smooth',
     });
   }, [pathname]);
-
-  useEffect(() => {
-    const theme = localStorage.getItem('theme');
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
 
   return (
     <>

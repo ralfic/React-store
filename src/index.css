@@ -12,7 +12,7 @@ body {
   scrollbar-color: black rgba(199, 199, 199, 0.4);
 }
 #root {
-  @apply font-Inter dark:bg-zinc-900;
+  @apply font-Inter dark:bg-zinc-900/100;
 }
 
 .scroll {

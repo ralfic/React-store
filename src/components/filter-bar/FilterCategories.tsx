@@ -1,7 +1,7 @@
 import { TCategory } from '@/types';
 import clsx from 'clsx';
 import FilterSkeleton from '../uikit/FilterSkeleton';
-import { setFilters } from '@/store/slices/products/productsSlice';
+import { setFilters } from '@/store/slices/products/products.slice';
 import { useAppDispatch, useAppSelector } from '@/store';
 
 interface IProps {
