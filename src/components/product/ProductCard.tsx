@@ -1,9 +1,10 @@
 import { memo } from 'react';
-import { IProduct } from '../types';
-import { Button } from './uikit/Button';
-import { PiHeartFill, PiHeartLight } from 'react-icons/pi';
+import { IProduct } from '../../types';
 import useProduct from '@/hooks/useProduct';
 import clsx from 'clsx';
+import ButtonWishlist from '../uikit/ButtonWishlist';
+import { Button } from '../uikit/Button';
+import ProductExtraInfo from './ProductExtraInfo';
 
 interface IProps {
   product: IProduct;
@@ -14,14 +15,8 @@ export const ProductCard = memo(function ProductCard({
   product,
   order,
 }: IProps) {
-  const {
-    discount,
-    addToWishList,
-    addToCart,
-    thereIsInCar,
-    thereIsInWishlist,
-    navigateToProduct,
-  } = useProduct(product);
+  const { discount, addToCart, thereIsInCar, navigateToProduct } =
+    useProduct(product);
 
   return (
     <div
@@ -33,21 +28,8 @@ export const ProductCard = memo(function ProductCard({
     >
       <div className="bg-white shadow-lg rounded-lg w-full ">
         <div className="relative cursor-pointer">
-          <span
-            className=" bg-gray-200/80 rounded-full p-[6px] absolute top-4 right-4 invisible hover-elements dark:bg-violet-600"
-            onClick={addToWishList}
-          >
-            {thereIsInWishlist ? (
-              <PiHeartFill className="fill-red-500" />
-            ) : (
-              <PiHeartLight />
-            )}
-          </span>
-          {product.discount && (
-            <span className="bg-green-400 text-white absolute top-4 left-4 rounded-[4px] px-2.5 uppercase font-bold text-sm">
-              {`-${product.discount}%`}
-            </span>
-          )}
+          <ButtonWishlist product={product} />
+          <ProductExtraInfo discount={product.discount} popular={product.popular}/>
           <img
             className="h-[260px]  max-[1100px]:h-[280px] max-m:h-[200px] max-sm:h-[240px] max-xs:h-[280px] object-contain w-full mx-auto px-2"
             src={product.image}

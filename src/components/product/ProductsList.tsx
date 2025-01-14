@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { ProductCard } from './ProductCard';
 import { IProduct } from '@/types';
 import { HiOutlineArrowRight } from 'react-icons/hi';
-import ProductsListSkeleton from './uikit/ProductsListSkeleton';
+import ProductsListSkeleton from '../uikit/ProductsListSkeleton';
 import { Link } from 'react-router-dom';
 
 interface IProps {

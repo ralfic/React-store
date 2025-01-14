@@ -1,7 +1,7 @@
 import { useGetOrdersQuery } from '@/api/user/userApi';
 
 export default function AccountOrders() {
-  const { data } = useGetOrdersQuery(null);
+  const { data } = useGetOrdersQuery();
 
   return (
     <>
