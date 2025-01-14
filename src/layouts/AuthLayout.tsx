@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 export default function AuthLayout() {
   return (
-    <div className="max-w-window mx-auto content-center h-screen px-8">
+    <div className="max-w-window mx-auto content-center px-8 min-h-svh max-h-full ">
       <div className="grid grid-cols-2 max-md:grid-cols-1 gap-8 ">
         <div className="w-full h-full flex flex-col items-center justify-center p-8">
           <Logo />

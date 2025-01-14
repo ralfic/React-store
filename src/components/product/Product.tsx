@@ -4,6 +4,7 @@ import { Button } from '@/components/uikit/Button';
 import { useState } from 'react';
 import clsx from 'clsx';
 import useProduct from '@/hooks/useProduct';
+import ProductExtraInfo from './ProductExtraInfo';
 
 interface IProps {
   product: IProduct;
@@ -23,13 +24,12 @@ export default function Product({ product }: IProps) {
 
   return (
     <section className="flex gap-14 justify-between relative pb-10 max-[880px]:flex-col">
-      <div className="max-w-[528px] relative max-lg:max-w-[408px] max-[880px]:max-w-full bg-white">
-        {product.discount && (
-          <span className="bg-green-400 text-white py-0.5 absolute top-4 left-4  rounded-[4px] px-2.5 uppercase font-bold text-sm">
-            {`-${product.discount}%`}
-          </span>
-        )}
-        <img className="mt-10 " src={product.image} />
+      <div className="max-w-[528px] relative max-lg:max-w-[408px] max-[880px]:max-w-full bg-white dark:bg-transparent">
+        <ProductExtraInfo
+          discount={product.discount}
+          popular={product.popular}
+        />
+        <img className="" src={product.image} />
       </div>
       <div>
         <div className="flex flex-col gap-4 max-w-[535px] pb-6 border-b max-[880px]:max-w-full">

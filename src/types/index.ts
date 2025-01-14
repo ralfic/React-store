@@ -30,9 +30,8 @@ export interface IUser {
   email: string;
   name: string;
   password: string;
-  remember?: boolean;
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
 }
 
 export interface IOrder {

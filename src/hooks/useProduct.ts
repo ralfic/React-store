@@ -1,17 +1,28 @@
 import calculateDiscount from '@/helpers/calculateDiscount';
 import { useAppDispatch, useAppSelector } from '@/store';
-import { addItem, removeItem } from '@/store/slices/cart/cartSlice';
-import { toggleCart } from '@/store/slices/flyoutCartSlice';
+import { addItem, removeItem } from '@/store/slices/cart/cart.slice';
+import { toggleCart } from '@/store/slices/flyoutCart.slice';
 import {
   removeItemFromWishList,
   addItemToWishList,
-} from '@/store/slices/wishlist/wishlistSlice';
+} from '@/store/slices/wishlist/wishlist.slice';
 import { ICartItem, IProduct } from '@/types';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-export default function useProduct(product: IProduct | ICartItem) {
+interface IUseProduct {
+  discount: number;
+  addToWishList: () => void;
+  addToCart: () => void;
+  thereIsInCar: boolean;
+  thereIsInWishlist: boolean;
+  removeFromWishList: () => void;
+  navigateToProduct: () => void;
+  removeFromCart: () => void;
+}
+
+export default function useProduct(product: IProduct | ICartItem): IUseProduct {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const itemsWishlist = useAppSelector((state) => state.wishlist.items);

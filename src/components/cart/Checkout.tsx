@@ -6,7 +6,7 @@ import { Button } from '../uikit/Button';
 import OrderSummary from './OrderSummary';
 import { useCreateOrderMutation } from '@/api/user/userApi';
 import { IOrder } from '@/types';
-import { clearCart } from '@/store/slices/cart/cartSlice';
+import { clearCart } from '@/store/slices/cart/cart.slice';
 import useCreateOrder from '@/hooks/useCreateOrder';
 import { toast } from 'react-toastify';
 import ContactForm from './checkoutForms/ContactForm';

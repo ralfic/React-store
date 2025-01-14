@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ProductCard } from './ProductCard';
-import { Button } from './uikit/Button';
-import ProductsListSkeleton from './uikit/ProductsListSkeleton';
+import { Button } from '../uikit/Button';
+import ProductsListSkeleton from '../uikit/ProductsListSkeleton';
 import { useAppDispatch, useAppSelector } from '@/store';
-import { setFilters } from '@/store/slices/products/productsSlice';
+import { setFilters } from '@/store/slices/products/products.slice';
 import { Input } from '@chakra-ui/react';
 import { InputGroup } from '@/components/ui/input-group';
 import { CiSearch } from 'react-icons/ci';
@@ -18,8 +18,16 @@ export default function ProductsListByFilters({ isLoading }: IProps) {
   const { category, limit } = useAppSelector((state) => state.products.filters);
   const [searchValue, setSearchValue] = useState('');
 
+  const searchedProducts = useMemo(
+    () => products.filter((product) => product.title.includes(searchValue)),
+    [searchValue, products]
+  );
   function increaseLimit() {
     dispatch(setFilters({ key: 'limit', value: limit + 9 }));
+  }
+
+  function handelSearchProducts(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearchValue(e.target.value);
   }
 
   return (
@@ -38,24 +46,22 @@ export default function ProductsListByFilters({ isLoading }: IProps) {
             className="border rounded-md"
             placeholder="Search the product"
             value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
+            onChange={handelSearchProducts}
           />
         </InputGroup>
       </div>
       <div className="grid grid-cols-3 gap-6 mb-20 max-lg:grid-cols-2 max-md:grid-cols-2 max-sm:grid-cols-2 max-m:grid-cols-1">
-        {!isLoading && (
-          <>
-            {products &&
-              products
-                .filter((product) => product.title.includes(searchValue))
-                .map((product, index) => (
-                  <ProductCard key={index} product={product} order={'col'} />
-                ))}
-          </>
-        )}
         {isLoading && (
           <>
             <ProductsListSkeleton limit={limit} />
+          </>
+        )}
+        {!isLoading && (
+          <>
+            {products &&
+              searchedProducts.map((product, index) => (
+                <ProductCard key={index} product={product} order={'col'} />
+              ))}
           </>
         )}
       </div>

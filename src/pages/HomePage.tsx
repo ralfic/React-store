@@ -1,6 +1,6 @@
 import BannerShopping from '../components/banners/BannerShopping';
 import BannerInformation from '../components/banners/BannerInformation';
-import { ProductsList } from '../components/ProductsList';
+import { ProductsList } from '../components/product/ProductsList';
 import BannerJoinNewsletter from '../components/banners/BannerJoinNewsletter';
 import { useGetProductsQuery } from '@/api/products/productsApi';
 import ShopCollection from '@/components/shopeCollection/ShopCollection';

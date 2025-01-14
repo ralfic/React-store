@@ -1,125 +1,116 @@
 import { IOrder, IUser } from '@/types';
 import { api } from '../api';
-import { BD_JSON_API_URL } from '@/constants/constants';
+import {
+  ChangePasswordResponse,
+  ChangePasswordRequest,
+  AddAccountDetailsRequest,
+} from './types';
 import getAuthData from '@/helpers/getAuthData';
-import { ChangePasswordResponse, ChangePasswordRequest } from './types';
+import { BD_JSON_API_URL } from '@/constants/constants';
+
+function getAuthHeaders() {
+  const { token } = getAuthData();
+  if (!token) {
+    throw new Error('Token is missing');
+  }
+  return new Headers({
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+    Authorization: `Bearer ${token}`,
+  });
+}
 
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getUser: builder.query<IUser, null>({
-      keepUnusedDataFor: 0,
+    getUser: builder.query<IUser, void>({
       query: () => {
-        const { token, id } = getAuthData();
-        if (!token || !id) {
-          throw new Error('Token or ID is missing');
+        const { id } = getAuthData();
+        if (!id) {
+          throw new Error('User ID is missing');
         }
 
         return {
           url: BD_JSON_API_URL + `/users/${id}`,
           method: 'GET',
-          headers: new Headers({
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          }),
+          headers: getAuthHeaders(),
         };
       },
+      providesTags: ['User'],
+      keepUnusedDataFor: 300,
     }),
-    addAccountDetails: builder.mutation<IUser, Partial<IUser>>({
+    addAccountDetails: builder.mutation<
+      void,
+      Partial<AddAccountDetailsRequest>
+    >({
       query: (userData) => {
-        const { token, id } = getAuthData();
-        if (!token || !id) {
-          throw new Error('Token or ID is missing');
+        const { id } = getAuthData();
+        if (!id) {
+          throw new Error('User ID is missing');
         }
         return {
           url: BD_JSON_API_URL + `/users/${id}`,
           method: 'PATCH',
-          headers: new Headers({
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          }),
+          headers: getAuthHeaders(),
           body: JSON.stringify(userData),
         };
       },
+      invalidatesTags: ['User'],
     }),
     changePassword: builder.mutation<
       ChangePasswordResponse,
       ChangePasswordRequest
     >({
-      query: (data) => {
-        return {
-          url: BD_JSON_API_URL + `/change-password`,
-          method: 'POST',
-          headers: new Headers({
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          }),
-          body: JSON.stringify(data),
-        };
-      },
+      query: (data) => ({
+        url: BD_JSON_API_URL + `/change-password`,
+        method: 'POST',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        }),
+        body: JSON.stringify(data),
+      }),
     }),
     createOrder: builder.mutation<void, IOrder>({
       query: (order) => {
-        const { token, id } = getAuthData();
-        if (!token || !id) {
-          throw new Error('Token or ID is missing');
+        const { id } = getAuthData();
+        if (!id) {
+          throw new Error('User ID is missing');
         }
         return {
           url: BD_JSON_API_URL + `/orders`,
           method: 'POST',
-          headers: new Headers({
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          }),
+          headers: getAuthHeaders(),
           body: JSON.stringify({ ...order, userId: id }),
         };
       },
     }),
-    getOrders: builder.query<IOrder[], null>({
-      keepUnusedDataFor: 0,
-      query: () => {
-        const { token } = getAuthData();
-        if (!token) {
-          throw new Error('Token is missing');
-        }
-
-        return {
-          url: BD_JSON_API_URL + `/orders`,
-          method: 'GET',
-          headers: new Headers({
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          }),
-        };
-      },
+    getOrders: builder.query<IOrder[], void>({
+      query: () => ({
+        url: BD_JSON_API_URL + `/orders`,
+        method: 'GET',
+        headers: getAuthHeaders(),
+      }),
     }),
-    getNewOrder: builder.query<IOrder, string | null>({
+    getNewOrder: builder.query<IOrder, string>({
       query: (orderId) => {
-        const { token, id } = getAuthData();
-        if (!token || !id) {
-          throw new Error('Token or ID is missing');
+        if (!orderId) {
+          throw new Error('Order ID is required');
         }
         return {
           url: BD_JSON_API_URL + `/orders/${orderId}`,
           method: 'GET',
-          headers: new Headers({
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-          }),
+          headers: getAuthHeaders(),
         };
       },
     }),
   }),
+  overrideExisting: false,
 });
 
 export const {
   useGetUserQuery,
   useLazyGetUserQuery,
-  useLazyGetNewOrderQuery,
+  useGetNewOrderQuery,
   useGetOrdersQuery,
   useAddAccountDetailsMutation,
   useChangePasswordMutation,

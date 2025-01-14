@@ -4,7 +4,7 @@ import { PRODUCT_API_URL } from '@/constants/constants';
 
 export const categoriesApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getCategories: builder.query<CategoriesApiResponse, null>({
+    getCategories: builder.query<CategoriesApiResponse, void>({
       query: () => {
         return {
           url: PRODUCT_API_URL + `products/category`,
@@ -12,6 +12,7 @@ export const categoriesApi = api.injectEndpoints({
       },
     }),
   }),
+  overrideExisting: false,
 });
 
 export const { useGetCategoriesQuery } = categoriesApi;

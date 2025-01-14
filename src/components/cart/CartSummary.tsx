@@ -1,8 +1,8 @@
 import { Radio, RadioGroup } from '@/components/ui/radio';
 import { Button } from '../uikit/Button';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store';
-import { setShippingType } from '@/store/slices/cart/cartSlice';
+import { setShippingType } from '@/store/slices/cart/cart.slice';
 
 const shippingTypes = [
   { title: 'Free shipping', price: 0, value: 'free' },
@@ -19,17 +19,13 @@ export default function CartSummary({ setActiveStep }: IProps) {
   const dispatch = useAppDispatch();
   const [value, setValue] = useState('free');
 
-  useEffect(() => {
-    dispatch(setShippingType(value));
-  }, [dispatch, value]);
-
   return (
     <div className="border border-black rounded-md p-6 max-w-[420px] w-full h-fit max-lg:max-w-full  dark:border-white dark:bg-neutral-600">
       <h3 className="text-xl font-medium font-Poppins mb-4">Cart summary</h3>
       <ul className="flex flex-col gap-3 mb-4">
         {shippingTypes.map((element, i) => (
           <li
-            className="px-4 py-3 border border-black dark:border-white rounded-lg flex items-center justify-between bg-black dark:bg-neutral-800"
+            className="px-4 py-3 border border-black dark:border-white rounded-lg flex items-center justify-between dark:bg-neutral-800"
             key={i}
           >
             <RadioGroup
@@ -37,7 +33,10 @@ export default function CartSummary({ setActiveStep }: IProps) {
               variant="outline"
               value={value}
               defaultValue={shippingType}
-              onValueChange={(e) => setValue(e.value)}
+              onValueChange={(e) => {
+                setValue(e.value);
+                dispatch(setShippingType(e.value));
+              }}
             >
               <Radio
                 className="mr-2 relative top-1 border border-black  dark:border-white rounded-full"

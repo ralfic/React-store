@@ -12,12 +12,11 @@ import {
   REHYDRATE,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import productsReducer from './slices/products/productsSlice';
-import cartReducer from './slices/cart/cartSlice';
-import flyoutCarReducer from './slices/flyoutCartSlice';
-import authReducer from './slices/auth/authSlice';
-import userReducer from './slices/user/userSlice';
-import wishlistReducer from './slices/wishlist/wishlistSlice';
+import productsReducer from './slices/products/products.slice';
+import cartReducer from './slices/cart/cart.slice';
+import flyoutCarReducer from './slices/flyoutCart.slice';
+import authReducer from './slices/auth/auth.slice';
+import wishlistReducer from './slices/wishlist/wishlist.slice';
 
 const cartPersistConfig = {
   key: 'cart',
@@ -34,12 +33,9 @@ const wishlistPersistConfig = {
   storage,
 };
 
-
-
 const rootReducer = combineReducers({
   products: productsReducer,
   auth: persistReducer(authPersistConfig, authReducer),
-  user: userReducer,
   wishlist: persistReducer(wishlistPersistConfig, wishlistReducer),
   flyoutCar: flyoutCarReducer,
   cart: persistReducer(cartPersistConfig, cartReducer),

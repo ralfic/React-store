@@ -17,12 +17,7 @@ export default function WishlistIcon() {
         <PiHeartLight className="w-6 h-6" />
         {items.length !== 0 && (
           <Float>
-            <Circle
-              className="text-xs font-semibold font-Poppins"
-              size="4.5"
-              bg="black"
-              color="white"
-            >
+           <Circle className="text-xs font-semibold font-Poppins text-white bg-black dark:text-black  dark:bg-violet-300" size="4.5">
               {items.length}
             </Circle>
           </Float>

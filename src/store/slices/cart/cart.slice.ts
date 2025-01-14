@@ -34,7 +34,7 @@ function calculateCartTotals(items: ICartItem[]) {
     return acc;
   }, 0);
   const totalPrice = price - totalDiscount;
-
+  
   return { totalQuantity, price, totalDiscount, totalPrice };
 }
 
@@ -90,14 +90,7 @@ export const cartSlice = createSlice({
 
       calculateCart(state);
     },
-    clearCart: (state) => {
-      state.items = [];
-      state.totalQuantity = 0;
-      state.totalPrice = 0;
-      state.totalDiscount = 0;
-      state.price = 0;
-      state.shippingType = 'free';
-    },
+    clearCart: () => initialState,
     setShippingType: (state, action: PayloadAction<string>) => {
       state.shippingType = action.payload;
     },
